@@ -2,12 +2,16 @@ import type { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    path: 'todos',
+    loadChildren: () => import('./todos/todos.routes').then((m) => m.TODOS_ROUTES),
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'todos',
     pathMatch: 'full',
+  },
+  {
+    path: '**',
+    redirectTo: 'todos',
   },
 ];

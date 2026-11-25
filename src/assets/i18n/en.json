@@ -1,0 +1,28 @@
+{
+  "todos": {
+    "list": {
+      "title": "My tasks",
+      "empty": "No tasks yet",
+      "emptyHint": "Tap «+» to add your first task",
+      "add": "Add task"
+    },
+    "item": {
+      "remove": "Delete task"
+    },
+    "form": {
+      "title": "New task",
+      "titleLabel": "Task title",
+      "descriptionLabel": "Description",
+      "save": "Save",
+      "errors": {
+        "titleRequired": "Enter a task title"
+      }
+    },
+    "remove": {
+      "header": "Delete task?",
+      "message": "This action cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
+  }
+}
