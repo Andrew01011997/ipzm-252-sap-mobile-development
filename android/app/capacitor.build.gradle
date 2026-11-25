@@ -21,6 +21,7 @@ dependencies {
     implementation project(':capacitor-keyboard')
     implementation project(':capacitor-network')
     implementation project(':capacitor-status-bar')
+    implementation project(':onesignal-capacitor-plugin')
 
 }
 

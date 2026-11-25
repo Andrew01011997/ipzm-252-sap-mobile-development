@@ -12,4 +12,5 @@ export const environment = {
     measurementId: 'G-68DKBEPQB1',
   },
   googleMaps: GOOGLE_MAPS_KEYS,
+  oneSignalAppId: '476f02e9-6c40-4c5f-bb03-31af3ec97ea8',
 };
