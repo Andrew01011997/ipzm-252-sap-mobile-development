@@ -34,8 +34,8 @@
   "auth": {
     "login": {
       "title": "Login",
-      "heading": "Welcome back!",
-      "subtitle": "Sign in to see your tasks",
+      "heading": "Log in to your account",
+      "subtitle": "Welcome back. Sign in to continue.",
       "submit": "Login",
       "noAccount": "Don't have an account?",
       "signUp": "Sign up"
@@ -64,10 +64,14 @@
     "signUp": {
       "title": "Sign up",
       "heading": "Create an account",
-      "subtitle": "Fields marked with * are required",
+      "subtitle": "It takes less than a minute.",
       "submit": "Sign up",
       "hasAccount": "Already have an account?",
-      "login": "Log in"
+      "login": "Log in",
+      "sections": {
+        "account": "Account",
+        "profile": "Profile · optional"
+      }
     },
     "errors": {
       "invalidCredential": "Wrong email or password",
@@ -84,5 +88,8 @@
     "logout": "Log out",
     "google": "Continue with Google",
     "or": "or"
+  },
+  "app": {
+    "name": "Todo"
   }
 }

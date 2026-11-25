@@ -10,12 +10,14 @@ import {
   IonHeader,
   IonInput,
   IonInputPasswordToggle,
-  IonRouterLink,
-  IonTitle,
+  IonRouterLinkWithHref,
+  IonIcon,
   IonToolbar,
   NavController,
 } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { checkmarkDoneOutline } from 'ionicons/icons';
 
 import type { ValidationMessages } from '../../../shared/forms/validation-message.pipe';
 import { ValidationMessagePipe } from '../../../shared/forms/validation-message.pipe';
@@ -33,19 +35,18 @@ export const USERNAME_MAX_LENGTH = 30;
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.page.html',
-  styleUrls: ['../auth-page.scss'],
   imports: [
     ReactiveFormsModule,
     IonHeader,
     IonToolbar,
     IonButtons,
     IonBackButton,
-    IonTitle,
+    IonIcon,
     IonContent,
     IonInput,
     IonInputPasswordToggle,
     IonButton,
-    IonRouterLink,
+    IonRouterLinkWithHref,
     RouterLink,
     TranslatePipe,
     ValidationMessagePipe,
@@ -98,6 +99,7 @@ export class SignUpPage {
   });
 
   constructor() {
+    addIcons({ checkmarkDoneOutline });
     this.form.controls.password.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.form.controls.confirmPassword.updateValueAndValidity());

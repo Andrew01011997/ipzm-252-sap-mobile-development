@@ -7,21 +7,30 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
-  color: var(--ion-color-medium);
-  font-size: 0.875rem;
+  margin-bottom: 20px;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--app-subtle);
 
   &::before,
   &::after {
     content: '';
     flex: 1;
     height: 1px;
-    background: var(--ion-color-step-200, rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.15));
+    background: var(--app-border);
   }
 }
 
 .google-button {
-  --border-radius: 12px;
-  min-height: 48px;
-  font-weight: 600;
+  margin: 0;
+  min-height: 44px;
+  --color: var(--app-fg);
+  font-size: 0.9375rem;
+}
+
+.google-logo {
+  width: 18px;
+  height: 18px;
+  margin-inline-end: 10px;
 }

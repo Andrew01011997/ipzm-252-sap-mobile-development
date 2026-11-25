@@ -1,9 +1,15 @@
-<ion-content>
+<ion-header class="auth-header" [translucent]="true">
+  <ion-toolbar>
+    <div class="app-brand">
+      <span class="app-brand-mark"><ion-icon name="checkmark-done-outline" aria-hidden="true"></ion-icon></span>
+      {{ 'app.name' | translate }}
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-page" [fullscreen]="true">
   <div class="auth-layout">
     <section class="auth-card">
-      <div class="auth-brand">
-        <ion-icon name="checkmark-done-outline" aria-hidden="true"></ion-icon>
-      </div>
       <h1 class="auth-heading">{{ 'auth.login.heading' | translate }}</h1>
       <p class="auth-subtitle">{{ 'auth.login.subtitle' | translate }}</p>
 
@@ -28,7 +34,7 @@
           [label]="'auth.fields.password' | translate"
           [errorText]="form.controls.password.errors | validationMessage: passwordMessages"
         >
-          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          <ion-input-password-toggle slot="end" color="medium"></ion-input-password-toggle>
         </ion-input>
 
         <ion-button class="auth-submit" type="submit" expand="block" [disabled]="submitting()">
@@ -38,12 +44,10 @@
 
       <app-google-sign-in />
 
-      <div class="auth-switch">
-        <span>{{ 'auth.login.noAccount' | translate }}</span>
-      </div>
-      <ion-button class="auth-submit" fill="outline" expand="block" routerLink="/auth/sign-up">
-        {{ 'auth.login.signUp' | translate }}
-      </ion-button>
+      <p class="auth-footer">
+        {{ 'auth.login.noAccount' | translate }}
+        <a class="auth-link" routerLink="/auth/sign-up">{{ 'auth.login.signUp' | translate }}</a>
+      </p>
     </section>
   </div>
 </ion-content>

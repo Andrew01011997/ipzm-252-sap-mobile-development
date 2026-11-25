@@ -4,10 +4,12 @@ import { RouterLink } from '@angular/router';
 import {
   IonButton,
   IonContent,
+  IonHeader,
   IonIcon,
   IonInput,
   IonInputPasswordToggle,
-  IonRouterLink,
+  IonRouterLinkWithHref,
+  IonToolbar,
   NavController,
 } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -25,15 +27,16 @@ import { AuthService } from '../../data/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['../auth-page.scss'],
   imports: [
     ReactiveFormsModule,
+    IonHeader,
+    IonToolbar,
     IonContent,
     IonIcon,
     IonInput,
     IonInputPasswordToggle,
     IonButton,
-    IonRouterLink,
+    IonRouterLinkWithHref,
     RouterLink,
     TranslatePipe,
     ValidationMessagePipe,

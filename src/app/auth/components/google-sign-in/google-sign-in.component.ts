@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { IonButton, IonIcon, NavController } from '@ionic/angular';
+import { IonButton, NavController } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
-import { addIcons } from 'ionicons';
-import { logoGoogle } from 'ionicons/icons';
 
 import { AppToast } from '../../../shared/ui/app-toast.service';
 import { HOME_URL } from '../../auth-urls';
@@ -13,7 +11,7 @@ import { AuthService } from '../../data/auth.service';
   selector: 'app-google-sign-in',
   templateUrl: './google-sign-in.component.html',
   styleUrl: './google-sign-in.component.scss',
-  imports: [IonButton, IonIcon, TranslatePipe],
+  imports: [IonButton, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GoogleSignInComponent {
@@ -22,10 +20,6 @@ export class GoogleSignInComponent {
   private readonly toast = inject(AppToast);
 
   protected readonly pending = signal(false);
-
-  constructor() {
-    addIcons({ logoGoogle });
-  }
 
   protected async signIn(): Promise<void> {
     if (this.pending()) {
