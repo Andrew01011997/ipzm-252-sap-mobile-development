@@ -29,6 +29,7 @@
     "@angular/router": "22.3.0",
     "@aparajita/capacitor-biometric-auth": "^10.0.0",
     "@capacitor-community/speech-recognition": "^7.0.1",
+    "@capacitor-firebase/authentication": "^8.6.0",
     "@capacitor/action-sheet": "^8.1.1",
     "@capacitor/android": "^8.6.2",
     "@capacitor/app": "8.1.2",
@@ -70,5 +71,10 @@
     "vitest": "^5.1.0"
   },
   "prettier": "@ionic/prettier-config",
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "overrides": {
+    "@capacitor-firebase/authentication": {
+      "firebase": "$firebase"
+    }
+  }
 }

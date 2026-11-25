@@ -38,7 +38,9 @@ export class VoiceInput {
   private browserSession?: BrowserSpeechRecognition;
 
   readonly listening = this.listeningState.asReadonly();
-  readonly supported = Capacitor.isNativePlatform() || browserRecognition() !== undefined;
+  readonly supported = Capacitor.isNativePlatform()
+    ? Capacitor.isPluginAvailable('SpeechRecognition')
+    : browserRecognition() !== undefined;
 
   async listen(): Promise<string | null> {
     if (this.listeningState()) {

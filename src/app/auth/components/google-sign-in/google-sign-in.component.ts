@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { Capacitor } from '@capacitor/core';
 import { IonButton, NavController } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -21,7 +20,7 @@ export class GoogleSignInComponent {
   private readonly toast = inject(AppToast);
 
   protected readonly pending = signal(false);
-  protected readonly available = !Capacitor.isNativePlatform();
+  protected readonly available = this.authService.googleSignInAvailable;
 
   protected async signIn(): Promise<void> {
     if (this.pending()) {
