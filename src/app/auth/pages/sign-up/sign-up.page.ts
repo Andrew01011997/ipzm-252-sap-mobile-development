@@ -22,6 +22,7 @@ import { ValidationMessagePipe } from '../../../shared/forms/validation-message.
 import { matchControl, notInFuture, phone, todayIsoDate } from '../../../shared/forms/validators';
 import { AppToast } from '../../../shared/ui/app-toast.service';
 import { HOME_URL } from '../../auth-urls';
+import { GoogleSignInComponent } from '../../components/google-sign-in/google-sign-in.component';
 import { authErrorKey } from '../../data/auth-error';
 import { AuthService } from '../../data/auth.service';
 
@@ -48,6 +49,7 @@ export const USERNAME_MAX_LENGTH = 30;
     RouterLink,
     TranslatePipe,
     ValidationMessagePipe,
+    GoogleSignInComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

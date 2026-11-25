@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  margin-top: 20px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: var(--ion-color-medium);
+  font-size: 0.875rem;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--ion-color-step-200, rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.15));
+  }
+}
+
+.google-button {
+  --border-radius: 12px;
+  min-height: 48px;
+  font-weight: 600;
+}

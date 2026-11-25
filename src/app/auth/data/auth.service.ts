@@ -2,14 +2,16 @@ import { EnvironmentInjector, Injectable, inject, runInInjectionContext, signal 
 import type { User } from '@angular/fire/auth';
 import {
   Auth,
+  GoogleAuthProvider,
   authState,
   createUserWithEmailAndPassword,
   deleteUser,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from '@angular/fire/auth';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { firstValueFrom } from 'rxjs';
 
 import { AppStorage } from '../../core/storage/app-storage.service';
@@ -46,6 +48,27 @@ export class AuthService {
 
   async login({ email, password }: Credentials): Promise<void> {
     const { user } = await this.run(() => signInWithEmailAndPassword(this.auth, email.trim(), password));
+    await this.rememberUser(user);
+  }
+
+  async loginWithGoogle(): Promise<void> {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    const { user } = await this.run(() => signInWithPopup(this.auth, provider));
+    const profileRef = doc(this.firestore, USERS_COLLECTION, user.uid);
+    const snapshot = await this.run(() => getDoc(profileRef));
+    if (!snapshot.exists()) {
+      const profile: UserProfile = {
+        uid: user.uid,
+        email: user.email ?? '',
+        username: user.displayName ?? user.email?.split('@')[0] ?? '',
+        phone: user.phoneNumber,
+        birthDate: null,
+        city: null,
+        createdAt: Date.now(),
+      };
+      await this.run(() => setDoc(profileRef, profile));
+    }
     await this.rememberUser(user);
   }
 

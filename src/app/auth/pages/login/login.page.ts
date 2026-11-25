@@ -18,6 +18,7 @@ import type { ValidationMessages } from '../../../shared/forms/validation-messag
 import { ValidationMessagePipe } from '../../../shared/forms/validation-message.pipe';
 import { AppToast } from '../../../shared/ui/app-toast.service';
 import { HOME_URL } from '../../auth-urls';
+import { GoogleSignInComponent } from '../../components/google-sign-in/google-sign-in.component';
 import { authErrorKey } from '../../data/auth-error';
 import { AuthService } from '../../data/auth.service';
 
@@ -36,6 +37,7 @@ import { AuthService } from '../../data/auth.service';
     RouterLink,
     TranslatePipe,
     ValidationMessagePipe,
+    GoogleSignInComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

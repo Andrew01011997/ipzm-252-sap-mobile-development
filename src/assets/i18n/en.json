@@ -77,8 +77,12 @@
       "tooManyRequests": "Too many attempts. Try again later",
       "network": "No network connection",
       "operationNotAllowed": "Email and password sign-in is disabled in Firebase",
-      "unknown": "Something went wrong. Please try again"
+      "unknown": "Something went wrong. Please try again",
+      "popupBlocked": "The browser blocked the sign-in window. Allow pop-ups",
+      "accountExists": "An account with this email already exists with another sign-in method"
     },
-    "logout": "Log out"
+    "logout": "Log out",
+    "google": "Continue with Google",
+    "or": "or"
   }
 }

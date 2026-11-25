@@ -1,0 +1,14 @@
+<div class="divider">
+  <span>{{ 'auth.or' | translate }}</span>
+</div>
+<ion-button
+  class="google-button"
+  fill="outline"
+  color="medium"
+  expand="block"
+  [disabled]="pending()"
+  (click)="signIn()"
+>
+  <ion-icon slot="start" name="logo-google" aria-hidden="true"></ion-icon>
+  {{ 'auth.google' | translate }}
+</ion-button>
