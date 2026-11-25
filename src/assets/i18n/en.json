@@ -132,5 +132,10 @@
       "iris": "iris scan",
       "generic": "biometrics"
     }
+  },
+  "offline": {
+    "title": "No internet connection",
+    "message": "Check your network. The app will be available again as soon as the connection is restored.",
+    "retry": "Try again"
   }
 }

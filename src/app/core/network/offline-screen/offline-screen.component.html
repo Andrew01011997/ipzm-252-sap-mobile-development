@@ -1,0 +1,12 @@
+<div class="offline-card">
+  <span class="offline-icon"><ion-icon name="cloud-offline-outline" aria-hidden="true"></ion-icon></span>
+  <h1 id="offline-title">{{ 'offline.title' | translate }}</h1>
+  <p>{{ 'offline.message' | translate }}</p>
+  <ion-button expand="block" fill="outline" [disabled]="checking()" (click)="retry()">
+    @if (checking()) {
+      <ion-spinner name="crescent"></ion-spinner>
+    } @else {
+      {{ 'offline.retry' | translate }}
+    }
+  </ion-button>
+</div>

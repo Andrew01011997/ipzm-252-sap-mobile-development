@@ -22,6 +22,7 @@ import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { AuthService } from './auth/data/auth.service';
 import { provideI18n } from './core/i18n/provide-i18n';
+import { NetworkStatus } from './core/network/network-status.service';
 import { BiometricLock } from './core/security/biometric-lock.service';
 
 registerLocaleData(localeUk);
@@ -41,5 +42,6 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(IonicStorageModule.forRoot()),
     provideAppInitializer(() => inject(AuthService).restoreSession()),
     provideAppInitializer(() => inject(BiometricLock).init()),
+    provideAppInitializer(() => inject(NetworkStatus).init()),
   ],
 };

@@ -1,3 +1,6 @@
-<ion-app>
+<ion-app [attr.inert]="network.online() ? null : ''">
   <ion-router-outlet></ion-router-outlet>
 </ion-app>
+@if (!network.online()) {
+  <app-offline-screen />
+}
