@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ImpactStyle } from '@capacitor/haptics';
 import {
   AlertController,
   IonButton,
@@ -21,6 +22,7 @@ import { add, checkmarkDoneOutline, clipboardOutline, cloudOfflineOutline, logOu
 
 import { LOGIN_URL } from '../../../auth/auth-urls';
 import { AuthService } from '../../../auth/data/auth.service';
+import { AppHaptics } from '../../../shared/native/haptics.service';
 import { AppToast } from '../../../shared/ui/app-toast.service';
 import { TodoItemComponent } from '../../components/todo-item/todo-item.component';
 import { TodoStore } from '../../data/todo.store';
@@ -57,6 +59,7 @@ export class TodoListPage {
   private readonly authService = inject(AuthService);
   private readonly nav = inject(NavController);
   private readonly toast = inject(AppToast);
+  private readonly haptics = inject(AppHaptics);
 
   protected readonly skeletonRows = [0, 1, 2];
   protected readonly hasTodos = computed(() => this.store.loaded() && !this.store.isEmpty());
@@ -72,6 +75,7 @@ export class TodoListPage {
   }
 
   protected async toggle(todo: Todo): Promise<void> {
+    void this.haptics.impact(todo.completed ? ImpactStyle.Light : ImpactStyle.Medium);
     try {
       await this.store.toggle(todo);
     } catch {

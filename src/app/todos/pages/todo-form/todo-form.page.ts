@@ -25,6 +25,7 @@ import { addIcons } from 'ionicons';
 import { calendarOutline, cameraOutline, close } from 'ionicons/icons';
 
 import { PhotoPicker } from '../../../shared/media/photo-picker.service';
+import { AppHaptics } from '../../../shared/native/haptics.service';
 import { AppToast } from '../../../shared/ui/app-toast.service';
 import { TodoStore } from '../../data/todo.store';
 import { TODO_DESCRIPTION_MAX_LENGTH, TODO_TITLE_MAX_LENGTH } from '../../todo.model';
@@ -70,6 +71,7 @@ export class TodoFormPage {
   private readonly nav = inject(NavController);
   private readonly toast = inject(AppToast);
   private readonly photoPicker = inject(PhotoPicker);
+  private readonly haptics = inject(AppHaptics);
 
   protected readonly listUrl = TODOS_LIST_URL;
   protected readonly titleMaxLength = TODO_TITLE_MAX_LENGTH;
@@ -139,6 +141,7 @@ export class TodoFormPage {
         dueDate: dueDate ? new Date(dueDate).getTime() : null,
         photo: this.photo(),
       });
+      void this.haptics.success();
       await this.nav.navigateBack(TODOS_LIST_URL);
     } catch {
       await this.toast.error('todos.errors.saveFailed');
