@@ -1,3 +1,5 @@
+import { GOOGLE_MAPS_KEYS } from './maps-keys';
+
 export const environment = {
   production: false,
   firebase: {
@@ -9,4 +11,6 @@ export const environment = {
     appId: '1:505285302970:web:bd601763468d1d85a4c083',
     measurementId: 'G-68DKBEPQB1',
   },
+  googleMaps: GOOGLE_MAPS_KEYS,
+  oneSignalAppId: '476f02e9-6c40-4c5f-bb03-31af3ec97ea8',
 };

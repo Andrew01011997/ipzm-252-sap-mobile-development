@@ -5,6 +5,10 @@
       {{ 'app.name' | translate }}
     </div>
     <ion-buttons slot="end">
+      <app-language-switcher class="toolbar-language" />
+      <ion-button color="medium" routerLink="map" [attr.aria-label]="'map.open' | translate">
+        <ion-icon slot="icon-only" name="map-outline"></ion-icon>
+      </ion-button>
       @if (userInitial(); as initial) {
       <span class="avatar" [attr.title]="userLabel()" aria-hidden="true">{{ initial }}</span>
       }

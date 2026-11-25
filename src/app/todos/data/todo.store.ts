@@ -57,6 +57,8 @@ export class TodoStore {
         createdAt: Date.now(),
         dueDate: draft.dueDate,
         photo,
+        location: draft.location,
+        category: draft.category,
       });
     } catch (error) {
       if (photo) {

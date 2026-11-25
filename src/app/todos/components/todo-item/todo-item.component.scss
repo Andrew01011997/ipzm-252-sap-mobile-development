@@ -35,11 +35,28 @@ ion-checkbox {
   overflow: hidden;
 }
 
+.category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 6px 0 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--app-muted);
+}
+
+.category-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--category-color);
+}
+
 .due {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-top: 6px;
+  margin: 6px 6px 0 0;
   padding: 2px 8px;
   border: 1px solid var(--app-border);
   border-radius: 999px;

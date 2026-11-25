@@ -1,9 +1,17 @@
+import type { TodoCategory } from './todo-category';
+
 export const TODO_TITLE_MAX_LENGTH = 100;
 export const TODO_DESCRIPTION_MAX_LENGTH = 500;
 
 export interface TodoPhoto {
   readonly url: string;
   readonly path: string;
+}
+
+export interface TodoLocation {
+  readonly lat: number;
+  readonly lng: number;
+  readonly accuracy: number | null;
 }
 
 export interface Todo {
@@ -15,6 +23,8 @@ export interface Todo {
   readonly createdAt: number;
   readonly dueDate: number | null;
   readonly photo: TodoPhoto | null;
+  readonly location: TodoLocation | null;
+  readonly category: TodoCategory;
 }
 
 export interface TodoDraft {
@@ -22,4 +32,6 @@ export interface TodoDraft {
   readonly description: string;
   readonly dueDate: number | null;
   readonly photo: Blob | null;
+  readonly location: TodoLocation | null;
+  readonly category: TodoCategory;
 }

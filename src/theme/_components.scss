@@ -154,3 +154,8 @@ ion-skeleton-text {
   color: var(--app-bg);
   font-size: 16px;
 }
+
+body.map-page-active,
+body.map-page-active ion-app {
+  background: transparent;
+}

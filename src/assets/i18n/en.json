@@ -27,7 +27,13 @@
       "addPhotoHint": "Camera or gallery",
       "changePhoto": "Change",
       "removePhoto": "Remove",
-      "removeDueDate": "Remove due date"
+      "removeDueDate": "Remove due date",
+      "location": "Location",
+      "addLocation": "Add current location",
+      "locating": "Getting location…",
+      "removeLocation": "Remove location",
+      "accuracy": "±{{meters}} m",
+      "category": "Category"
     },
     "remove": {
       "header": "Delete task?",
@@ -119,7 +125,8 @@
     "cancel": "Cancel",
     "done": "Done",
     "clear": "Clear",
-    "locale": "en-US"
+    "locale": "en-US",
+    "close": "Close"
   },
   "media": {
     "source": {
@@ -157,5 +164,36 @@
       "denied": "No access to the microphone or speech recognition",
       "failed": "Could not recognize speech"
     }
+  },
+  "language": {
+    "label": "Language",
+    "names": {
+      "uk": "Українська",
+      "en": "English"
+    }
+  },
+  "location": {
+    "errors": {
+      "denied": "No access to location. Allow it in settings",
+      "failed": "Could not get your location"
+    }
+  },
+  "categories": {
+    "study": "Study",
+    "work": "Work",
+    "home": "Home",
+    "other": "Other"
+  },
+  "map": {
+    "title": "Tasks map",
+    "open": "Open map",
+    "nearby": "Nearby",
+    "nearbyCount": "Tasks within {{radius}} km: {{count}}",
+    "empty": "No tasks with a location",
+    "info": {
+      "completed": "Completed",
+      "active": "Active"
+    },
+    "you": "You are here"
   }
 }

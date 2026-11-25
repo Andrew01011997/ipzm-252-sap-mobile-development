@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 export type ValidationMessages = Readonly<Record<string, string>>;
 
-@Pipe({ name: 'validationMessage' })
+@Pipe({ name: 'validationMessage', pure: false })
 export class ValidationMessagePipe implements PipeTransform {
   private readonly translate = inject(TranslateService);
 

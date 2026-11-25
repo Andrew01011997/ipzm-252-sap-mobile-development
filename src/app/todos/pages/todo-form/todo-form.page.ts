@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import type { AbstractControl, ValidationErrors } from '@angular/forms';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,13 +22,19 @@ import {
 } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
-import { calendarOutline, cameraOutline, close } from 'ionicons/icons';
+import { calendarOutline, cameraOutline, close, locationOutline } from 'ionicons/icons';
 
+import { LanguageService } from '../../../core/i18n/language.service';
 import { PhotoPicker } from '../../../shared/media/photo-picker.service';
+import { CoordinatesPipe } from '../../../shared/native/coordinates.pipe';
 import { AppHaptics } from '../../../shared/native/haptics.service';
+import { AppLocation, LocationPermissionError } from '../../../shared/native/location.service';
 import { AppToast } from '../../../shared/ui/app-toast.service';
 import { VoiceButtonComponent } from '../../../shared/voice/voice-button.component';
 import { TodoStore } from '../../data/todo.store';
+import type { TodoCategory } from '../../todo-category';
+import { DEFAULT_TODO_CATEGORY, TODO_CATEGORIES, TODO_CATEGORY_ICONS, TODO_CATEGORY_META } from '../../todo-category';
+import type { TodoLocation } from '../../todo.model';
 import { TODO_DESCRIPTION_MAX_LENGTH, TODO_TITLE_MAX_LENGTH } from '../../todo.model';
 
 export const TODOS_LIST_URL = '/todos';
@@ -49,6 +55,7 @@ function toLocalIsoMinutes(date: Date): string {
   imports: [
     ReactiveFormsModule,
     DatePipe,
+    DecimalPipe,
     IonHeader,
     IonToolbar,
     IonButtons,
@@ -65,6 +72,7 @@ function toLocalIsoMinutes(date: Date): string {
     IonButton,
     TranslatePipe,
     VoiceButtonComponent,
+    CoordinatesPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -74,15 +82,21 @@ export class TodoFormPage {
   private readonly toast = inject(AppToast);
   private readonly photoPicker = inject(PhotoPicker);
   private readonly haptics = inject(AppHaptics);
+  private readonly geolocation = inject(AppLocation);
+  protected readonly language = inject(LanguageService);
 
   protected readonly listUrl = TODOS_LIST_URL;
   protected readonly titleMaxLength = TODO_TITLE_MAX_LENGTH;
   protected readonly descriptionMaxLength = TODO_DESCRIPTION_MAX_LENGTH;
+  protected readonly categories = TODO_CATEGORIES;
+  protected readonly categoryMeta = TODO_CATEGORY_META;
   protected readonly minDueDate = toLocalIsoMinutes(new Date());
   protected readonly saving = signal(false);
   protected readonly dueDateOpen = signal(false);
   protected readonly photo = signal<Blob | null>(null);
   protected readonly photoPreview = signal<string | null>(null);
+  protected readonly location = signal<TodoLocation | null>(null);
+  protected readonly locating = signal(false);
 
   protected readonly form = new FormGroup({
     title: new FormControl('', {
@@ -94,10 +108,11 @@ export class TodoFormPage {
       validators: [Validators.maxLength(TODO_DESCRIPTION_MAX_LENGTH)],
     }),
     dueDate: new FormControl<string | null>(null),
+    category: new FormControl<TodoCategory>(DEFAULT_TODO_CATEGORY, { nonNullable: true }),
   });
 
   constructor() {
-    addIcons({ calendarOutline, cameraOutline, close });
+    addIcons({ calendarOutline, cameraOutline, close, locationOutline, ...TODO_CATEGORY_ICONS });
     inject(DestroyRef).onDestroy(() => this.setPhoto(null));
   }
 
@@ -130,6 +145,26 @@ export class TodoFormPage {
     control.markAsDirty();
   }
 
+  protected async addLocation(): Promise<void> {
+    if (this.locating()) {
+      return;
+    }
+    this.locating.set(true);
+    try {
+      this.location.set(await this.geolocation.current());
+    } catch (error) {
+      await this.toast.error(
+        error instanceof LocationPermissionError ? 'location.errors.denied' : 'location.errors.failed',
+      );
+    } finally {
+      this.locating.set(false);
+    }
+  }
+
+  protected removeLocation(): void {
+    this.location.set(null);
+  }
+
   protected removePhoto(): void {
     this.setPhoto(null);
   }
@@ -144,12 +179,14 @@ export class TodoFormPage {
     }
     this.saving.set(true);
     try {
-      const { title, description, dueDate } = this.form.getRawValue();
+      const { title, description, dueDate, category } = this.form.getRawValue();
       await this.store.add({
         title,
         description,
         dueDate: dueDate ? new Date(dueDate).getTime() : null,
         photo: this.photo(),
+        location: this.location(),
+        category,
       });
       void this.haptics.success();
       await this.nav.navigateBack(TODOS_LIST_URL);

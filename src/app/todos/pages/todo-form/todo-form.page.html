@@ -46,12 +46,32 @@
       </ion-textarea>
 
       <section class="field-group">
+        <span id="category-label" class="field-label">{{ 'todos.form.category' | translate }}</span>
+        <div class="category-picker" role="radiogroup" aria-labelledby="category-label">
+          @for (category of categories; track category) {
+          <button
+            type="button"
+            role="radio"
+            class="category-option"
+            [class.selected]="form.controls.category.value === category"
+            [attr.aria-checked]="form.controls.category.value === category"
+            [style.--category-color]="categoryMeta[category].color"
+            (click)="form.controls.category.setValue(category)"
+          >
+            <ion-icon [name]="categoryMeta[category].iconName" aria-hidden="true"></ion-icon>
+            {{ 'categories.' + category | translate }}
+          </button>
+          }
+        </div>
+      </section>
+
+      <section class="field-group">
         <span class="field-label">{{ 'todos.form.dueDate' | translate }}</span>
         @if (form.controls.dueDate.value; as dueDate) {
         <div class="value-row">
           <button type="button" class="value-chip" (click)="dueDateOpen.set(true)">
             <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
-            {{ dueDate | date: 'd MMMM y, HH:mm' }}
+            {{ dueDate | date: 'd MMMM y, HH:mm' : undefined : language.dateLocale() }}
           </button>
           <ion-button
             fill="clear"
@@ -67,6 +87,39 @@
         <button type="button" class="add-tile" (click)="dueDateOpen.set(true)">
           <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
           {{ 'todos.form.addDueDate' | translate }}
+        </button>
+        }
+      </section>
+
+      <section class="field-group">
+        <span class="field-label">{{ 'todos.form.location' | translate }}</span>
+        @if (location(); as point) {
+        <div class="value-row">
+          <span class="value-chip">
+            <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+            {{ point | coordinates }} @if (point.accuracy !== null) {
+            <span class="value-hint"
+              >{{ 'todos.form.accuracy' | translate: { meters: (point.accuracy | number: '1.0-0') } }}</span
+            >
+            }
+          </span>
+          <ion-button
+            fill="clear"
+            color="medium"
+            size="small"
+            [attr.aria-label]="'todos.form.removeLocation' | translate"
+            (click)="removeLocation()"
+          >
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </div>
+        } @else {
+        <button type="button" class="add-tile" [disabled]="locating()" (click)="addLocation()">
+          @if (locating()) {
+          <ion-spinner name="crescent"></ion-spinner>
+          {{ 'todos.form.locating' | translate }} } @else {
+          <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+          {{ 'todos.form.addLocation' | translate }} }
         </button>
         }
       </section>
