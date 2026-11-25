@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -13,12 +13,17 @@ import {
   IonRouterLink,
   IonTitle,
   IonToolbar,
+  NavController,
 } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import type { ValidationMessages } from '../../../shared/forms/validation-message.pipe';
 import { ValidationMessagePipe } from '../../../shared/forms/validation-message.pipe';
 import { matchControl, notInFuture, phone, todayIsoDate } from '../../../shared/forms/validators';
+import { AppToast } from '../../../shared/ui/app-toast.service';
+import { HOME_URL } from '../../auth-urls';
+import { authErrorKey } from '../../data/auth-error';
+import { AuthService } from '../../data/auth.service';
 
 export const PASSWORD_MIN_LENGTH = 6;
 export const USERNAME_MIN_LENGTH = 3;
@@ -47,6 +52,11 @@ export const USERNAME_MAX_LENGTH = 30;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpPage {
+  private readonly authService = inject(AuthService);
+  private readonly nav = inject(NavController);
+  private readonly toast = inject(AppToast);
+
+  protected readonly submitting = signal(false);
   protected readonly maxBirthDate = todayIsoDate();
   protected readonly usernameMaxLength = USERNAME_MAX_LENGTH;
 
@@ -91,9 +101,23 @@ export class SignUpPage {
       .subscribe(() => this.form.controls.confirmPassword.updateValueAndValidity());
   }
 
-  protected submit(): void {
+  protected async submit(): Promise<void> {
+    if (this.submitting()) {
+      return;
+    }
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      return;
+    }
+    this.submitting.set(true);
+    try {
+      const { email, password, username, phone, birthDate, city } = this.form.getRawValue();
+      await this.authService.register({ email, password, username, phone, birthDate, city });
+      await this.nav.navigateRoot(HOME_URL);
+    } catch (error) {
+      await this.toast.error(authErrorKey(error));
+    } finally {
+      this.submitting.set(false);
     }
   }
 }

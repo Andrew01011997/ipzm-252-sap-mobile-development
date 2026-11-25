@@ -62,6 +62,17 @@
       "submit": "Sign up",
       "hasAccount": "Already have an account?",
       "login": "Log in"
-    }
+    },
+    "errors": {
+      "invalidCredential": "Wrong email or password",
+      "emailInUse": "This email is already registered",
+      "weakPassword": "Password is too weak",
+      "invalidEmail": "Invalid email",
+      "tooManyRequests": "Too many attempts. Try again later",
+      "network": "No network connection",
+      "operationNotAllowed": "Email and password sign-in is disabled in Firebase",
+      "unknown": "Something went wrong. Please try again"
+    },
+    "logout": "Log out"
   }
 }

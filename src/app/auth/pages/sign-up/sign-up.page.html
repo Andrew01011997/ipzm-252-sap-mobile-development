@@ -90,7 +90,7 @@
           [label]="'auth.fields.city' | translate"
         ></ion-input>
 
-        <ion-button class="auth-submit" type="submit" expand="block">
+        <ion-button class="auth-submit" type="submit" expand="block" [disabled]="submitting()">
           {{ 'auth.signUp.submit' | translate }}
         </ion-button>
       </form>
