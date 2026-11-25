@@ -3,6 +3,10 @@
   margin-top: 20px;
 }
 
+:host:empty {
+  display: none;
+}
+
 .divider {
   display: flex;
   align-items: center;

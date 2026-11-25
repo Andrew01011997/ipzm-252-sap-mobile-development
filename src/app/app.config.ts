@@ -3,8 +3,8 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import localeUk from '@angular/common/locales/uk';
 import type { ApplicationConfig } from '@angular/core';
 import { LOCALE_ID, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, indexedDBLocalPersistence, initializeAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import {
@@ -14,6 +14,7 @@ import {
   withComponentInputBinding,
   withPreloading,
 } from '@angular/router';
+import { Capacitor } from '@capacitor/core';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
@@ -35,7 +36,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideI18n(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
+    provideAuth(() =>
+      Capacitor.isNativePlatform() ? initializeAuth(getApp(), { persistence: indexedDBLocalPersistence }) : getAuth(),
+    ),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     { provide: LOCALE_ID, useValue: 'uk' },
