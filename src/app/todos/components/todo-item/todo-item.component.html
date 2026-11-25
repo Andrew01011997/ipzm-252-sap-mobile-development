@@ -1,0 +1,23 @@
+<ion-item lines="full">
+  <ion-checkbox
+    slot="start"
+    [checked]="todo().completed"
+    [aria-label]="todo().title"
+    (ionChange)="completionToggled.emit()"
+  ></ion-checkbox>
+  <ion-label class="ion-text-wrap" [class.completed]="todo().completed">
+    <h2 class="title">{{ todo().title }}</h2>
+    @if (todo().description) {
+      <p class="description">{{ todo().description }}</p>
+    }
+  </ion-label>
+  <ion-button
+    slot="end"
+    fill="clear"
+    color="danger"
+    [attr.aria-label]="'todos.item.remove' | translate"
+    (click)="removeRequested.emit()"
+  >
+    <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+  </ion-button>
+</ion-item>

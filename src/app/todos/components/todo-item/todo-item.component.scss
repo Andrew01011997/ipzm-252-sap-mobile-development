@@ -1,0 +1,12 @@
+.title {
+  transition: color 0.2s ease;
+}
+
+.completed .title {
+  text-decoration: line-through;
+  color: var(--ion-color-medium);
+}
+
+.completed .description {
+  opacity: 0.6;
+}

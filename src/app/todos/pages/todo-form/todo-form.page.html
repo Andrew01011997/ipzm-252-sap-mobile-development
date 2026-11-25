@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="listUrl"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'todos.form.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form id="todo-form" class="todo-form" [formGroup]="form" (ngSubmit)="save()">
+    <ion-input
+      formControlName="title"
+      fill="outline"
+      labelPlacement="floating"
+      autocapitalize="sentences"
+      enterkeyhint="next"
+      [label]="'todos.form.titleLabel' | translate"
+      [errorText]="'todos.form.errors.titleRequired' | translate"
+      [maxlength]="titleMaxLength"
+      [counter]="true"
+    ></ion-input>
+
+    <ion-textarea
+      formControlName="description"
+      fill="outline"
+      labelPlacement="floating"
+      autocapitalize="sentences"
+      [label]="'todos.form.descriptionLabel' | translate"
+      [maxlength]="descriptionMaxLength"
+      [counter]="true"
+      [autoGrow]="true"
+      [rows]="4"
+    ></ion-textarea>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-padding-horizontal">
+    <ion-button type="submit" form="todo-form" expand="block" [disabled]="saving()">
+      {{ 'todos.form.save' | translate }}
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
