@@ -1,3 +1,5 @@
+import type { TodoCategory } from './todo-category';
+
 export const TODO_TITLE_MAX_LENGTH = 100;
 export const TODO_DESCRIPTION_MAX_LENGTH = 500;
 
@@ -22,6 +24,7 @@ export interface Todo {
   readonly dueDate: number | null;
   readonly photo: TodoPhoto | null;
   readonly location: TodoLocation | null;
+  readonly category: TodoCategory;
 }
 
 export interface TodoDraft {
@@ -30,4 +33,5 @@ export interface TodoDraft {
   readonly dueDate: number | null;
   readonly photo: Blob | null;
   readonly location: TodoLocation | null;
+  readonly category: TodoCategory;
 }

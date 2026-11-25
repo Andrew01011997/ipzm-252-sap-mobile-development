@@ -32,7 +32,8 @@
       "addLocation": "Add current location",
       "locating": "Getting location…",
       "removeLocation": "Remove location",
-      "accuracy": "±{{meters}} m"
+      "accuracy": "±{{meters}} m",
+      "category": "Category"
     },
     "remove": {
       "header": "Delete task?",
@@ -175,5 +176,11 @@
       "denied": "No access to location. Allow it in settings",
       "failed": "Could not get your location"
     }
+  },
+  "categories": {
+    "study": "Study",
+    "work": "Work",
+    "home": "Home",
+    "other": "Other"
   }
 }

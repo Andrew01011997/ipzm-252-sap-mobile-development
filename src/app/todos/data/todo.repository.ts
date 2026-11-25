@@ -14,13 +14,14 @@ import {
 import type { Observable } from 'rxjs';
 import { map } from 'rxjs';
 
+import { DEFAULT_TODO_CATEGORY, isTodoCategory } from '../todo-category';
 import type { Todo } from '../todo.model';
 
 export const TODOS_COLLECTION = 'todos';
 
 export type TodoDocument = Omit<Todo, 'id'>;
 export type TodoChanges = Partial<
-  Pick<TodoDocument, 'title' | 'description' | 'completed' | 'dueDate' | 'photo' | 'location'>
+  Pick<TodoDocument, 'title' | 'description' | 'completed' | 'dueDate' | 'photo' | 'location' | 'category'>
 >;
 
 @Injectable({ providedIn: 'root' })
@@ -39,6 +40,7 @@ export class TodoRepository {
             dueDate: todo.dueDate ?? null,
             photo: todo.photo ?? null,
             location: todo.location ?? null,
+            category: isTodoCategory(todo.category) ? todo.category : DEFAULT_TODO_CATEGORY,
           }))
           .sort((a, b) => b.createdAt - a.createdAt),
       ),

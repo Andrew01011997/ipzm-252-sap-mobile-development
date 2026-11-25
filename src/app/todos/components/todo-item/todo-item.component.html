@@ -10,6 +10,10 @@
     @if (todo().description) {
       <p class="description">{{ todo().description }}</p>
     }
+    <span class="category" [style.--category-color]="categoryMeta().color">
+      <span class="category-dot" aria-hidden="true"></span>
+      {{ 'categories.' + todo().category | translate }}
+    </span>
     @if (todo().dueDate; as dueDate) {
       <span class="due" [class.overdue]="isOverdue()">
         <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>

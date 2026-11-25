@@ -111,6 +111,45 @@
   cursor: progress;
 }
 
+.category-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.category-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--app-border-strong);
+  border-radius: var(--app-radius);
+  background: var(--app-surface);
+  color: var(--app-fg);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+
+  ion-icon {
+    font-size: 18px;
+    color: var(--category-color);
+  }
+
+  &:hover {
+    background: var(--app-hover);
+  }
+
+  &.selected {
+    border-color: var(--category-color);
+    background: color-mix(in srgb, var(--category-color) 10%, var(--app-surface));
+    box-shadow: inset 0 0 0 1px var(--category-color);
+  }
+}
+
 .photo-preview {
   overflow: hidden;
   border: 1px solid var(--app-border);

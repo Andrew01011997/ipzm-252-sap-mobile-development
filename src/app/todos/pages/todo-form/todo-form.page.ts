@@ -32,6 +32,8 @@ import { AppLocation, LocationPermissionError } from '../../../shared/native/loc
 import { AppToast } from '../../../shared/ui/app-toast.service';
 import { VoiceButtonComponent } from '../../../shared/voice/voice-button.component';
 import { TodoStore } from '../../data/todo.store';
+import type { TodoCategory } from '../../todo-category';
+import { DEFAULT_TODO_CATEGORY, TODO_CATEGORIES, TODO_CATEGORY_ICONS, TODO_CATEGORY_META } from '../../todo-category';
 import type { TodoLocation } from '../../todo.model';
 import { TODO_DESCRIPTION_MAX_LENGTH, TODO_TITLE_MAX_LENGTH } from '../../todo.model';
 
@@ -86,6 +88,8 @@ export class TodoFormPage {
   protected readonly listUrl = TODOS_LIST_URL;
   protected readonly titleMaxLength = TODO_TITLE_MAX_LENGTH;
   protected readonly descriptionMaxLength = TODO_DESCRIPTION_MAX_LENGTH;
+  protected readonly categories = TODO_CATEGORIES;
+  protected readonly categoryMeta = TODO_CATEGORY_META;
   protected readonly minDueDate = toLocalIsoMinutes(new Date());
   protected readonly saving = signal(false);
   protected readonly dueDateOpen = signal(false);
@@ -104,10 +108,11 @@ export class TodoFormPage {
       validators: [Validators.maxLength(TODO_DESCRIPTION_MAX_LENGTH)],
     }),
     dueDate: new FormControl<string | null>(null),
+    category: new FormControl<TodoCategory>(DEFAULT_TODO_CATEGORY, { nonNullable: true }),
   });
 
   constructor() {
-    addIcons({ calendarOutline, cameraOutline, close, locationOutline });
+    addIcons({ calendarOutline, cameraOutline, close, locationOutline, ...TODO_CATEGORY_ICONS });
     inject(DestroyRef).onDestroy(() => this.setPhoto(null));
   }
 
@@ -174,13 +179,14 @@ export class TodoFormPage {
     }
     this.saving.set(true);
     try {
-      const { title, description, dueDate } = this.form.getRawValue();
+      const { title, description, dueDate, category } = this.form.getRawValue();
       await this.store.add({
         title,
         description,
         dueDate: dueDate ? new Date(dueDate).getTime() : null,
         photo: this.photo(),
         location: this.location(),
+        category,
       });
       void this.haptics.success();
       await this.nav.navigateBack(TODOS_LIST_URL);

@@ -7,6 +7,7 @@ import { calendarOutline, locationOutline, trashOutline } from 'ionicons/icons';
 
 import { LanguageService } from '../../../core/i18n/language.service';
 import { CoordinatesPipe } from '../../../shared/native/coordinates.pipe';
+import { TODO_CATEGORY_META } from '../../todo-category';
 import type { Todo } from '../../todo.model';
 
 @Component({
@@ -22,6 +23,8 @@ export class TodoItemComponent {
   readonly todo = input.required<Todo>();
   readonly completionToggled = output<void>();
   readonly removeRequested = output<void>();
+
+  protected readonly categoryMeta = computed(() => TODO_CATEGORY_META[this.todo().category]);
 
   protected readonly isOverdue = computed(() => {
     const { dueDate, completed } = this.todo();
