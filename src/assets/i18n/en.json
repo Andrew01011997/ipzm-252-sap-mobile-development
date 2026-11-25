@@ -23,6 +23,12 @@
       "message": "This action cannot be undone.",
       "confirm": "Delete",
       "cancel": "Cancel"
+    },
+    "errors": {
+      "saveFailed": "Could not save the task",
+      "updateFailed": "Could not update the task",
+      "removeFailed": "Could not delete the task",
+      "loadFailed": "Could not load tasks"
     }
   },
   "auth": {

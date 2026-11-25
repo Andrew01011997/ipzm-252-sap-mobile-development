@@ -16,7 +16,12 @@
     </ion-toolbar>
   </ion-header>
 
-  @if (showEmptyState()) {
+  @if (store.failed()) {
+  <div class="empty-state">
+    <ion-icon name="cloud-offline-outline" aria-hidden="true"></ion-icon>
+    <h2>{{ 'todos.errors.loadFailed' | translate }}</h2>
+  </div>
+  } @else if (showEmptyState()) {
   <div class="empty-state">
     <ion-icon name="clipboard-outline" aria-hidden="true"></ion-icon>
     <h2>{{ 'todos.list.empty' | translate }}</h2>

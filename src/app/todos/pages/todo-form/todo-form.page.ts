@@ -16,6 +16,7 @@ import {
 } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { AppToast } from '../../../shared/ui/app-toast.service';
 import { TodoStore } from '../../data/todo.store';
 import { TODO_DESCRIPTION_MAX_LENGTH, TODO_TITLE_MAX_LENGTH } from '../../todo.model';
 
@@ -48,6 +49,7 @@ function notBlank(control: AbstractControl<string>): ValidationErrors | null {
 export class TodoFormPage {
   private readonly store = inject(TodoStore);
   private readonly nav = inject(NavController);
+  private readonly toast = inject(AppToast);
 
   protected readonly listUrl = TODOS_LIST_URL;
   protected readonly titleMaxLength = TODO_TITLE_MAX_LENGTH;
@@ -77,6 +79,8 @@ export class TodoFormPage {
     try {
       await this.store.add(this.form.getRawValue());
       await this.nav.navigateBack(TODOS_LIST_URL);
+    } catch {
+      await this.toast.error('todos.errors.saveFailed');
     } finally {
       this.saving.set(false);
     }

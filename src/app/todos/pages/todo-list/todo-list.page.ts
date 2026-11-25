@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import type { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   AlertController,
@@ -19,10 +18,11 @@ import {
 } from '@ionic/angular';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
-import { add, clipboardOutline, logOutOutline } from 'ionicons/icons';
+import { add, clipboardOutline, cloudOfflineOutline, logOutOutline } from 'ionicons/icons';
 
 import { LOGIN_URL } from '../../../auth/auth-urls';
 import { AuthService } from '../../../auth/data/auth.service';
+import { AppToast } from '../../../shared/ui/app-toast.service';
 import { TodoItemComponent } from '../../components/todo-item/todo-item.component';
 import { TodoStore } from '../../data/todo.store';
 import type { Todo } from '../../todo.model';
@@ -52,25 +52,28 @@ export const REMOVE_CONFIRM_ROLE = 'destructive';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TodoListPage implements OnInit {
+export class TodoListPage {
   protected readonly store = inject(TodoStore);
   private readonly alerts = inject(AlertController);
   private readonly translate = inject(TranslateService);
   private readonly authService = inject(AuthService);
   private readonly nav = inject(NavController);
+  private readonly toast = inject(AppToast);
 
-  protected readonly showEmptyState = computed(() => this.store.loaded() && this.store.isEmpty());
+  protected readonly showEmptyState = computed(
+    () => this.store.loaded() && !this.store.failed() && this.store.isEmpty(),
+  );
 
   constructor() {
-    addIcons({ add, clipboardOutline, logOutOutline });
+    addIcons({ add, clipboardOutline, cloudOfflineOutline, logOutOutline });
   }
 
-  ngOnInit(): void {
-    void this.store.load();
-  }
-
-  protected toggle(todo: Todo): Promise<void> {
-    return this.store.toggle(todo.id);
+  protected async toggle(todo: Todo): Promise<void> {
+    try {
+      await this.store.toggle(todo);
+    } catch {
+      await this.toast.error('todos.errors.updateFailed');
+    }
   }
 
   protected async logout(): Promise<void> {
@@ -94,8 +97,13 @@ export class TodoListPage implements OnInit {
     });
     await alert.present();
     const { role } = await alert.onDidDismiss();
-    if (role === REMOVE_CONFIRM_ROLE) {
+    if (role !== REMOVE_CONFIRM_ROLE) {
+      return;
+    }
+    try {
       await this.store.remove(todo.id);
+    } catch {
+      await this.toast.error('todos.errors.removeFailed');
     }
   }
 }

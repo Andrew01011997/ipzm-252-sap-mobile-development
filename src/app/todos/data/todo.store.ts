@@ -1,59 +1,67 @@
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { Injectable, computed, inject } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { catchError, map, of, switchMap } from 'rxjs';
 
+import { AuthService } from '../../auth/data/auth.service';
 import type { Todo, TodoDraft } from '../todo.model';
 
-import { TodoStorage } from './todo-storage';
+import { TodoRepository } from './todo.repository';
+
+interface TodosState {
+  readonly todos: readonly Todo[];
+  readonly loaded: boolean;
+  readonly failed: boolean;
+}
+
+const INITIAL_STATE: TodosState = { todos: [], loaded: false, failed: false };
 
 @Injectable({ providedIn: 'root' })
 export class TodoStore {
-  private readonly storage = inject(TodoStorage);
-  private readonly state = signal<readonly Todo[]>([]);
-  private readonly loadedState = signal(false);
-  private loading?: Promise<void>;
+  private readonly repository = inject(TodoRepository);
+  private readonly authService = inject(AuthService);
 
-  readonly todos = this.state.asReadonly();
-  readonly loaded = this.loadedState.asReadonly();
-  readonly isEmpty = computed(() => this.state().length === 0);
+  private readonly state = toSignal(
+    toObservable(this.authService.userId).pipe(
+      switchMap((userId) =>
+        userId
+          ? this.repository.watchByUser(userId).pipe(
+              map((todos): TodosState => ({ todos, loaded: true, failed: false })),
+              catchError(() => of<TodosState>({ todos: [], loaded: true, failed: true })),
+            )
+          : of(INITIAL_STATE),
+      ),
+    ),
+    { initialValue: INITIAL_STATE },
+  );
 
-  load(): Promise<void> {
-    this.loading ??= this.storage.load().then((todos) => {
-      this.state.set(todos);
-      this.loadedState.set(true);
-    });
-    return this.loading;
-  }
+  readonly todos = computed(() => this.state().todos);
+  readonly loaded = computed(() => this.state().loaded);
+  readonly failed = computed(() => this.state().failed);
+  readonly isEmpty = computed(() => this.state().todos.length === 0);
 
-  async add(draft: TodoDraft): Promise<Todo> {
-    await this.load();
-    const todo: Todo = {
-      id: crypto.randomUUID(),
+  async add(draft: TodoDraft): Promise<void> {
+    await this.repository.create({
+      userId: this.requireUserId(),
       title: draft.title.trim(),
       description: draft.description.trim(),
       completed: false,
       createdAt: Date.now(),
-    };
-    await this.commit([todo, ...this.state()]);
-    return todo;
+    });
   }
 
-  async toggle(id: string): Promise<void> {
-    await this.load();
-    await this.commit(this.state().map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)));
+  toggle(todo: Todo): Promise<void> {
+    return this.repository.update(todo.id, { completed: !todo.completed });
   }
 
-  async remove(id: string): Promise<void> {
-    await this.load();
-    await this.commit(this.state().filter((todo) => todo.id !== id));
+  remove(id: string): Promise<void> {
+    return this.repository.remove(id);
   }
 
-  private async commit(todos: readonly Todo[]): Promise<void> {
-    const previous = this.state();
-    this.state.set(todos);
-    try {
-      await this.storage.save(todos);
-    } catch (error) {
-      this.state.set(previous);
-      throw error;
+  private requireUserId(): string {
+    const userId = this.authService.userId();
+    if (!userId) {
+      throw new Error('User is not authenticated');
     }
+    return userId;
   }
 }

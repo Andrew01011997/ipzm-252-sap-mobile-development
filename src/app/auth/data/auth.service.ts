@@ -71,8 +71,8 @@ export class AuthService {
   }
 
   async logout(): Promise<void> {
-    await this.run(() => signOut(this.auth));
     await this.forgetUser();
+    await this.run(() => signOut(this.auth));
   }
 
   private async rememberUser(user: User): Promise<void> {
