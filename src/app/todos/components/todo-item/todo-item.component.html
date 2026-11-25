@@ -1,20 +1,21 @@
-<ion-item lines="full">
+<ion-item class="todo-item" lines="none" [class.completed]="todo().completed">
   <ion-checkbox
     slot="start"
     [checked]="todo().completed"
     [aria-label]="todo().title"
     (ionChange)="completionToggled.emit()"
   ></ion-checkbox>
-  <ion-label class="ion-text-wrap" [class.completed]="todo().completed">
+  <ion-label class="ion-text-wrap">
     <h2 class="title">{{ todo().title }}</h2>
     @if (todo().description) {
       <p class="description">{{ todo().description }}</p>
     }
   </ion-label>
   <ion-button
+    class="remove"
     slot="end"
     fill="clear"
-    color="danger"
+    color="medium"
     [attr.aria-label]="'todos.item.remove' | translate"
     (click)="removeRequested.emit()"
   >

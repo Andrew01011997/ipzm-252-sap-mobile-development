@@ -1,4 +1,5 @@
 import { EnvironmentInjector, Injectable, inject, runInInjectionContext, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import type { User } from '@angular/fire/auth';
 import {
   Auth,
@@ -31,6 +32,7 @@ export class AuthService {
 
   readonly user$ = authState(this.auth);
   readonly userId = this.userIdState.asReadonly();
+  readonly user = toSignal(this.user$, { initialValue: null });
 
   async restoreSession(): Promise<void> {
     const [user, storedUserId] = await Promise.all([

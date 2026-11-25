@@ -11,14 +11,13 @@ import {
   IonIcon,
   IonList,
   IonRouterLink,
-  IonText,
-  IonTitle,
+  IonSkeletonText,
   IonToolbar,
   NavController,
 } from '@ionic/angular';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
-import { add, clipboardOutline, cloudOfflineOutline, logOutOutline } from 'ionicons/icons';
+import { add, checkmarkDoneOutline, clipboardOutline, cloudOfflineOutline, logOutOutline } from 'ionicons/icons';
 
 import { LOGIN_URL } from '../../../auth/auth-urls';
 import { AuthService } from '../../../auth/data/auth.service';
@@ -38,10 +37,9 @@ export const REMOVE_CONFIRM_ROLE = 'destructive';
     IonToolbar,
     IonButtons,
     IonButton,
-    IonTitle,
     IonContent,
     IonList,
-    IonText,
+    IonSkeletonText,
     IonIcon,
     IonFab,
     IonFabButton,
@@ -60,12 +58,17 @@ export class TodoListPage {
   private readonly nav = inject(NavController);
   private readonly toast = inject(AppToast);
 
-  protected readonly showEmptyState = computed(
-    () => this.store.loaded() && !this.store.failed() && this.store.isEmpty(),
-  );
+  protected readonly skeletonRows = [0, 1, 2];
+  protected readonly hasTodos = computed(() => this.store.loaded() && !this.store.isEmpty());
+  protected readonly progressPercent = computed(() => Math.round(this.store.progress() * 100));
+  protected readonly userLabel = computed(() => {
+    const user = this.authService.user();
+    return user?.displayName || user?.email || '';
+  });
+  protected readonly userInitial = computed(() => this.userLabel().charAt(0));
 
   constructor() {
-    addIcons({ add, clipboardOutline, cloudOfflineOutline, logOutOutline });
+    addIcons({ add, checkmarkDoneOutline, clipboardOutline, cloudOfflineOutline, logOutOutline });
   }
 
   protected async toggle(todo: Todo): Promise<void> {

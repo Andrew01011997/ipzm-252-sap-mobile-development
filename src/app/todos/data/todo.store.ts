@@ -38,6 +38,9 @@ export class TodoStore {
   readonly loaded = computed(() => this.state().loaded);
   readonly failed = computed(() => this.state().failed);
   readonly isEmpty = computed(() => this.state().todos.length === 0);
+  readonly completedCount = computed(() => this.state().todos.filter((todo) => todo.completed).length);
+  readonly activeCount = computed(() => this.state().todos.length - this.completedCount());
+  readonly progress = computed(() => (this.isEmpty() ? 0 : this.completedCount() / this.state().todos.length));
 
   async add(draft: TodoDraft): Promise<void> {
     await this.repository.create({

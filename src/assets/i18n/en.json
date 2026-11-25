@@ -3,8 +3,10 @@
     "list": {
       "title": "My tasks",
       "empty": "No tasks yet",
-      "emptyHint": "Tap «+» to add your first task",
-      "add": "Add task"
+      "emptyHint": "Create your first task to get started.",
+      "add": "Add task",
+      "summary": "Active: {{active}} · Completed: {{completed}}",
+      "progress": "Completion progress"
     },
     "item": {
       "remove": "Delete task"
@@ -16,7 +18,8 @@
       "save": "Save",
       "errors": {
         "titleRequired": "Enter a task title"
-      }
+      },
+      "subtitle": "Add a title and, optionally, a description."
     },
     "remove": {
       "header": "Delete task?",
