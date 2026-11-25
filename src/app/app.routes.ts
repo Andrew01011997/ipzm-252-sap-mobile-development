@@ -18,6 +18,11 @@ export const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {
+    path: 'locked',
+    loadComponent: () => import('./core/security/lock/lock.page').then((m) => m.LockPage),
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
     path: '',
     redirectTo: 'todos',
     pathMatch: 'full',

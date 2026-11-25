@@ -21,6 +21,7 @@ import { add, checkmarkDoneOutline, clipboardOutline, cloudOfflineOutline, logOu
 
 import { LOGIN_URL } from '../../../auth/auth-urls';
 import { AuthService } from '../../../auth/data/auth.service';
+import { BiometricLock } from '../../../core/security/biometric-lock.service';
 import { NativeActionSheet } from '../../../shared/native/action-sheet.service';
 import { AppHaptics } from '../../../shared/native/haptics.service';
 import { AppToast } from '../../../shared/ui/app-toast.service';
@@ -58,6 +59,7 @@ export class TodoListPage {
   private readonly nav = inject(NavController);
   private readonly toast = inject(AppToast);
   private readonly haptics = inject(AppHaptics);
+  private readonly biometricLock = inject(BiometricLock);
 
   protected readonly skeletonRows = [0, 1, 2];
   protected readonly hasTodos = computed(() => this.store.loaded() && !this.store.isEmpty());
@@ -82,6 +84,7 @@ export class TodoListPage {
   }
 
   protected async logout(): Promise<void> {
+    this.biometricLock.lock();
     await this.authService.logout();
     await this.nav.navigateRoot(LOGIN_URL);
   }

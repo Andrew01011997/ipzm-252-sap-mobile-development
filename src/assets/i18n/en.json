@@ -118,5 +118,19 @@
     "errors": {
       "pickFailed": "Could not get the photo"
     }
+  },
+  "lock": {
+    "title": "App is locked",
+    "subtitle": "Verify your identity with {{method}} to open your tasks.",
+    "reason": "Verify your identity to open your tasks",
+    "unlock": "Unlock",
+    "biometry": {
+      "faceId": "Face ID",
+      "touchId": "Touch ID",
+      "fingerprint": "fingerprint",
+      "face": "face recognition",
+      "iris": "iris scan",
+      "generic": "biometrics"
+    }
   }
 }
