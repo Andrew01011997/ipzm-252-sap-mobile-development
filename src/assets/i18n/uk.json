@@ -36,12 +36,32 @@
     },
     "fields": {
       "email": "Електронна пошта",
-      "password": "Пароль"
+      "password": "Пароль",
+      "confirmPassword": "Підтвердження паролю",
+      "username": "Ім'я користувача",
+      "phone": "Номер телефону",
+      "birthDate": "Дата народження",
+      "city": "Місто"
     },
     "validation": {
       "emailRequired": "Вкажіть електронну пошту",
       "emailInvalid": "Некоректна електронна пошта",
-      "passwordRequired": "Вкажіть пароль"
+      "passwordRequired": "Вкажіть пароль",
+      "passwordMinLength": "Пароль має містити щонайменше {{requiredLength}} символів",
+      "confirmPasswordRequired": "Повторіть пароль",
+      "passwordsMismatch": "Паролі не збігаються",
+      "usernameRequired": "Вкажіть ім'я користувача",
+      "usernameMinLength": "Ім'я має містити щонайменше {{requiredLength}} символи",
+      "phoneInvalid": "Некоректний номер телефону",
+      "birthDateInvalid": "Дата не може бути в майбутньому"
+    },
+    "signUp": {
+      "title": "Реєстрація",
+      "heading": "Створіть акаунт",
+      "subtitle": "Поля з * обов'язкові",
+      "submit": "Зареєструватися",
+      "hasAccount": "Вже маєте акаунт?",
+      "login": "Увійти"
     }
   }
 }

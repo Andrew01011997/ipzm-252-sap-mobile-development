@@ -36,12 +36,32 @@
     },
     "fields": {
       "email": "Email",
-      "password": "Password"
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "username": "Username",
+      "phone": "Phone number",
+      "birthDate": "Date of birth",
+      "city": "City"
     },
     "validation": {
       "emailRequired": "Enter your email",
       "emailInvalid": "Invalid email",
-      "passwordRequired": "Enter your password"
+      "passwordRequired": "Enter your password",
+      "passwordMinLength": "Password must be at least {{requiredLength}} characters",
+      "confirmPasswordRequired": "Repeat your password",
+      "passwordsMismatch": "Passwords do not match",
+      "usernameRequired": "Enter a username",
+      "usernameMinLength": "Username must be at least {{requiredLength}} characters",
+      "phoneInvalid": "Invalid phone number",
+      "birthDateInvalid": "Date cannot be in the future"
+    },
+    "signUp": {
+      "title": "Sign up",
+      "heading": "Create an account",
+      "subtitle": "Fields marked with * are required",
+      "submit": "Sign up",
+      "hasAccount": "Already have an account?",
+      "login": "Log in"
     }
   }
 }
