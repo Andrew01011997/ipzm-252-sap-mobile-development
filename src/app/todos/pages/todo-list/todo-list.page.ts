@@ -104,7 +104,7 @@ export class TodoListPage {
       return;
     }
     try {
-      await this.store.remove(todo.id);
+      await this.store.remove(todo);
     } catch {
       await this.toast.error('todos.errors.removeFailed');
     }

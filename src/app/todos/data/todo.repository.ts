@@ -2,12 +2,12 @@ import { EnvironmentInjector, Injectable, inject, runInInjectionContext } from '
 import type { CollectionReference } from '@angular/fire/firestore';
 import {
   Firestore,
-  addDoc,
   collection,
   collectionData,
   deleteDoc,
   doc,
   query,
+  setDoc,
   updateDoc,
   where,
 } from '@angular/fire/firestore';
@@ -19,7 +19,7 @@ import type { Todo } from '../todo.model';
 export const TODOS_COLLECTION = 'todos';
 
 export type TodoDocument = Omit<Todo, 'id'>;
-export type TodoChanges = Partial<Pick<TodoDocument, 'title' | 'description' | 'completed'>>;
+export type TodoChanges = Partial<Pick<TodoDocument, 'title' | 'description' | 'completed' | 'dueDate' | 'photo'>>;
 
 @Injectable({ providedIn: 'root' })
 export class TodoRepository {
@@ -30,12 +30,20 @@ export class TodoRepository {
 
   watchByUser(userId: string): Observable<Todo[]> {
     return this.run(() => collectionData(query(this.todos, where('userId', '==', userId)), { idField: 'id' })).pipe(
-      map((todos) => [...todos].sort((a, b) => b.createdAt - a.createdAt)),
+      map((todos) =>
+        todos
+          .map((todo): Todo => ({ ...todo, dueDate: todo.dueDate ?? null, photo: todo.photo ?? null }))
+          .sort((a, b) => b.createdAt - a.createdAt),
+      ),
     );
   }
 
-  async create(todo: TodoDocument): Promise<void> {
-    await this.run(() => addDoc(this.collection, todo));
+  createId(): string {
+    return this.run(() => doc(this.collection).id);
+  }
+
+  async create(id: string, todo: TodoDocument): Promise<void> {
+    await this.run(() => setDoc(doc(this.collection, id), todo));
   }
 
   update(id: string, changes: TodoChanges): Promise<void> {

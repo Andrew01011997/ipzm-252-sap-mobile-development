@@ -19,7 +19,15 @@
       "errors": {
         "titleRequired": "Вкажіть назву завдання"
       },
-      "subtitle": "Додайте назву та, за потреби, опис."
+      "subtitle": "Додайте назву та, за потреби, опис.",
+      "dueDate": "Термін виконання",
+      "addDueDate": "Додати термін",
+      "photo": "Фото",
+      "addPhoto": "Додати фото",
+      "addPhotoHint": "Камера або галерея",
+      "changePhoto": "Змінити",
+      "removePhoto": "Прибрати",
+      "removeDueDate": "Прибрати термін"
     },
     "remove": {
       "header": "Видалити завдання?",
@@ -94,5 +102,21 @@
   },
   "app": {
     "name": "Todo"
+  },
+  "common": {
+    "cancel": "Скасувати",
+    "done": "Готово",
+    "clear": "Очистити",
+    "locale": "uk-UA"
+  },
+  "media": {
+    "source": {
+      "title": "Додати фото",
+      "camera": "Зробити фото",
+      "gallery": "Вибрати з галереї"
+    },
+    "errors": {
+      "pickFailed": "Не вдалося отримати фото"
+    }
   }
 }

@@ -35,6 +35,33 @@ ion-checkbox {
   overflow: hidden;
 }
 
+.due {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border: 1px solid var(--app-border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--app-muted);
+}
+
+.overdue {
+  border-color: rgba(var(--app-danger-rgb), 0.35);
+  color: var(--app-danger);
+}
+
+.thumb {
+  width: 44px;
+  height: 44px;
+  margin-inline-start: 8px;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  object-fit: cover;
+}
+
 .completed .title {
   color: var(--app-subtle);
   text-decoration: line-through;

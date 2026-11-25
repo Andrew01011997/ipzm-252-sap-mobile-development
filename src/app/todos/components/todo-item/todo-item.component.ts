@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { IonButton, IonCheckbox, IonIcon, IonItem, IonLabel } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
-import { trashOutline } from 'ionicons/icons';
+import { calendarOutline, trashOutline } from 'ionicons/icons';
 
 import type { Todo } from '../../todo.model';
 
@@ -10,7 +11,7 @@ import type { Todo } from '../../todo.model';
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
   styleUrl: './todo-item.component.scss',
-  imports: [IonItem, IonCheckbox, IonLabel, IonButton, IonIcon, TranslatePipe],
+  imports: [IonItem, IonCheckbox, IonLabel, IonButton, IonIcon, TranslatePipe, DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoItemComponent {
@@ -18,7 +19,12 @@ export class TodoItemComponent {
   readonly completionToggled = output<void>();
   readonly removeRequested = output<void>();
 
+  protected readonly isOverdue = computed(() => {
+    const { dueDate, completed } = this.todo();
+    return !completed && dueDate !== null && dueDate < Date.now();
+  });
+
   constructor() {
-    addIcons({ trashOutline });
+    addIcons({ calendarOutline, trashOutline });
   }
 }

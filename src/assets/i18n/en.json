@@ -19,7 +19,15 @@
       "errors": {
         "titleRequired": "Enter a task title"
       },
-      "subtitle": "Add a title and, optionally, a description."
+      "subtitle": "Add a title and, optionally, a description.",
+      "dueDate": "Due date",
+      "addDueDate": "Add due date",
+      "photo": "Photo",
+      "addPhoto": "Add photo",
+      "addPhotoHint": "Camera or gallery",
+      "changePhoto": "Change",
+      "removePhoto": "Remove",
+      "removeDueDate": "Remove due date"
     },
     "remove": {
       "header": "Delete task?",
@@ -94,5 +102,21 @@
   },
   "app": {
     "name": "Todo"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "done": "Done",
+    "clear": "Clear",
+    "locale": "en-US"
+  },
+  "media": {
+    "source": {
+      "title": "Add photo",
+      "camera": "Take photo",
+      "gallery": "Choose from gallery"
+    },
+    "errors": {
+      "pickFailed": "Could not get the photo"
+    }
   }
 }
