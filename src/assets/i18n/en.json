@@ -193,6 +193,7 @@
     "info": {
       "completed": "Completed",
       "active": "Active"
-    }
+    },
+    "you": "You are here"
   }
 }

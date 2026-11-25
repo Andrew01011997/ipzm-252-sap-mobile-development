@@ -24,7 +24,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { calendarOutline, checkmarkCircle, close, ellipseOutline, navigateOutline } from 'ionicons/icons';
 
@@ -48,6 +48,9 @@ const FIT_PADDING = 64;
 const MARKER_SIZE = { width: 32, height: 40 };
 const MARKER_ANCHOR = { x: 16, y: 40 };
 const MAP_ACTIVE_CLASS = 'map-page-active';
+const USER_MARKER_URL = 'assets/markers/me.png';
+const USER_MARKER_SIZE = { width: 24, height: 24 };
+const USER_MARKER_ANCHOR = { x: 12, y: 12 };
 
 type LocatedTodo = Todo & { readonly location: TodoLocation };
 
@@ -88,6 +91,7 @@ export class TodoMapPage implements OnDestroy {
   private readonly store = inject(TodoStore);
   private readonly geolocation = inject(AppLocation);
   private readonly toast = inject(AppToast);
+  private readonly translate = inject(TranslateService);
   protected readonly language = inject(LanguageService);
 
   private readonly mapElement = viewChild.required<ElementRef<HTMLElement>>('mapElement');
@@ -215,8 +219,18 @@ export class TodoMapPage implements OnDestroy {
       zIndex: todo.completed ? 0 : 1,
       opacity: todo.completed ? 0.55 : 1,
     }));
+    if (nearbyCenter) {
+      markers.push({
+        coordinate: { lat: nearbyCenter.lat, lng: nearbyCenter.lng },
+        title: this.translate.instant('map.you'),
+        iconUrl: USER_MARKER_URL,
+        iconSize: USER_MARKER_SIZE,
+        iconAnchor: USER_MARKER_ANCHOR,
+        zIndex: 2,
+      });
+    }
     this.markerIds = markers.length ? await map.addMarkers(markers) : [];
-    this.markerIds.forEach((id, index) => this.markerTodos.set(id, todos[index]));
+    todos.forEach((todo, index) => this.markerTodos.set(this.markerIds[index], todo));
 
     if (nearbyCenter) {
       this.circleIds = await map.addCircles([
