@@ -27,6 +27,7 @@ import { calendarOutline, cameraOutline, close } from 'ionicons/icons';
 import { PhotoPicker } from '../../../shared/media/photo-picker.service';
 import { AppHaptics } from '../../../shared/native/haptics.service';
 import { AppToast } from '../../../shared/ui/app-toast.service';
+import { VoiceButtonComponent } from '../../../shared/voice/voice-button.component';
 import { TodoStore } from '../../data/todo.store';
 import { TODO_DESCRIPTION_MAX_LENGTH, TODO_TITLE_MAX_LENGTH } from '../../todo.model';
 
@@ -63,6 +64,7 @@ function toLocalIsoMinutes(date: Date): string {
     IonFooter,
     IonButton,
     TranslatePipe,
+    VoiceButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -118,6 +120,14 @@ export class TodoFormPage {
     } catch {
       await this.toast.error('media.errors.pickFailed');
     }
+  }
+
+  protected appendTranscript(field: 'title' | 'description', text: string): void {
+    const control = this.form.controls[field];
+    const maxLength = field === 'title' ? TODO_TITLE_MAX_LENGTH : TODO_DESCRIPTION_MAX_LENGTH;
+    const current = control.value.trim();
+    control.setValue((current ? `${current} ${text}` : text).slice(0, maxLength));
+    control.markAsDirty();
   }
 
   protected removePhoto(): void {

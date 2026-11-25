@@ -25,7 +25,9 @@
         [errorText]="'todos.form.errors.titleRequired' | translate"
         [maxlength]="titleMaxLength"
         [counter]="true"
-      ></ion-input>
+      >
+        <app-voice-button slot="end" (transcribed)="appendTranscript('title', $event)" />
+      </ion-input>
 
       <ion-textarea
         formControlName="description"
@@ -37,7 +39,9 @@
         [counter]="true"
         [autoGrow]="true"
         [rows]="4"
-      ></ion-textarea>
+      >
+        <app-voice-button slot="end" (transcribed)="appendTranscript('description', $event)" />
+      </ion-textarea>
 
       <section class="field-group">
         <span class="field-label">{{ 'todos.form.dueDate' | translate }}</span>
