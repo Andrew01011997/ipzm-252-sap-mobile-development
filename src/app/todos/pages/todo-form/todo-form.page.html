@@ -72,6 +72,39 @@
       </section>
 
       <section class="field-group">
+        <span class="field-label">{{ 'todos.form.location' | translate }}</span>
+        @if (location(); as point) {
+        <div class="value-row">
+          <span class="value-chip">
+            <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+            {{ point | coordinates }} @if (point.accuracy !== null) {
+            <span class="value-hint"
+              >{{ 'todos.form.accuracy' | translate: { meters: (point.accuracy | number: '1.0-0') } }}</span
+            >
+            }
+          </span>
+          <ion-button
+            fill="clear"
+            color="medium"
+            size="small"
+            [attr.aria-label]="'todos.form.removeLocation' | translate"
+            (click)="removeLocation()"
+          >
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </div>
+        } @else {
+        <button type="button" class="add-tile" [disabled]="locating()" (click)="addLocation()">
+          @if (locating()) {
+          <ion-spinner name="crescent"></ion-spinner>
+          {{ 'todos.form.locating' | translate }} } @else {
+          <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+          {{ 'todos.form.addLocation' | translate }} }
+        </button>
+        }
+      </section>
+
+      <section class="field-group">
         <span class="field-label">{{ 'todos.form.photo' | translate }}</span>
         @if (photoPreview(); as preview) {
         <div class="photo-preview">

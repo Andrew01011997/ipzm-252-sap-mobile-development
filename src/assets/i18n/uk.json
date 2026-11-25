@@ -27,7 +27,12 @@
       "addPhotoHint": "Камера або галерея",
       "changePhoto": "Змінити",
       "removePhoto": "Прибрати",
-      "removeDueDate": "Прибрати термін"
+      "removeDueDate": "Прибрати термін",
+      "location": "Локація",
+      "addLocation": "Додати поточну локацію",
+      "locating": "Визначаємо локацію…",
+      "removeLocation": "Прибрати локацію",
+      "accuracy": "±{{meters}} м"
     },
     "remove": {
       "header": "Видалити завдання?",
@@ -163,6 +168,12 @@
     "names": {
       "uk": "Українська",
       "en": "English"
+    }
+  },
+  "location": {
+    "errors": {
+      "denied": "Немає доступу до геолокації. Дозвольте його в налаштуваннях",
+      "failed": "Не вдалося визначити локацію"
     }
   }
 }

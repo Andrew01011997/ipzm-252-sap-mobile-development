@@ -16,6 +16,12 @@
         {{ dueDate | date: 'd MMM, HH:mm' : undefined : language.dateLocale() }}
       </span>
     }
+    @if (todo().location; as location) {
+      <span class="due">
+        <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+        {{ location | coordinates: 3 }}
+      </span>
+    }
   </ion-label>
   @if (todo().photo; as photo) {
     <img class="thumb" slot="end" [src]="photo.url" alt="" loading="lazy" />

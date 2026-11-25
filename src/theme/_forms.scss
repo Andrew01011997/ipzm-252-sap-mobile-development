@@ -30,7 +30,7 @@
     background-color 0.15s ease,
     color 0.15s ease;
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: var(--app-fg);
     background: var(--app-hover);
     color: var(--app-fg);
@@ -95,6 +95,20 @@
   &:hover {
     background: var(--app-hover);
   }
+}
+
+.value-hint {
+  color: var(--app-subtle);
+  font-size: 0.8125rem;
+}
+
+.add-tile ion-spinner {
+  width: 18px;
+  height: 18px;
+}
+
+.add-tile:disabled {
+  cursor: progress;
 }
 
 .photo-preview {

@@ -3,16 +3,17 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, output } f
 import { IonButton, IonCheckbox, IonIcon, IonItem, IonLabel } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
-import { calendarOutline, trashOutline } from 'ionicons/icons';
+import { calendarOutline, locationOutline, trashOutline } from 'ionicons/icons';
 
 import { LanguageService } from '../../../core/i18n/language.service';
+import { CoordinatesPipe } from '../../../shared/native/coordinates.pipe';
 import type { Todo } from '../../todo.model';
 
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
   styleUrl: './todo-item.component.scss',
-  imports: [IonItem, IonCheckbox, IonLabel, IonButton, IonIcon, TranslatePipe, DatePipe],
+  imports: [IonItem, IonCheckbox, IonLabel, IonButton, IonIcon, TranslatePipe, DatePipe, CoordinatesPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoItemComponent {
@@ -28,6 +29,6 @@ export class TodoItemComponent {
   });
 
   constructor() {
-    addIcons({ calendarOutline, trashOutline });
+    addIcons({ calendarOutline, locationOutline, trashOutline });
   }
 }

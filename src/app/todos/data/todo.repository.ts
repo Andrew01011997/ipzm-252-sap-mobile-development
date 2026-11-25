@@ -19,7 +19,9 @@ import type { Todo } from '../todo.model';
 export const TODOS_COLLECTION = 'todos';
 
 export type TodoDocument = Omit<Todo, 'id'>;
-export type TodoChanges = Partial<Pick<TodoDocument, 'title' | 'description' | 'completed' | 'dueDate' | 'photo'>>;
+export type TodoChanges = Partial<
+  Pick<TodoDocument, 'title' | 'description' | 'completed' | 'dueDate' | 'photo' | 'location'>
+>;
 
 @Injectable({ providedIn: 'root' })
 export class TodoRepository {
@@ -32,7 +34,12 @@ export class TodoRepository {
     return this.run(() => collectionData(query(this.todos, where('userId', '==', userId)), { idField: 'id' })).pipe(
       map((todos) =>
         todos
-          .map((todo): Todo => ({ ...todo, dueDate: todo.dueDate ?? null, photo: todo.photo ?? null }))
+          .map((todo): Todo => ({
+            ...todo,
+            dueDate: todo.dueDate ?? null,
+            photo: todo.photo ?? null,
+            location: todo.location ?? null,
+          }))
           .sort((a, b) => b.createdAt - a.createdAt),
       ),
     );

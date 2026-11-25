@@ -37,6 +37,8 @@
 	<string>Камера потрібна, щоб додати фото до завдання.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Face ID захищає ваш список завдань від сторонніх.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Геолокація потрібна, щоб прив'язати завдання до місця та показати завдання поруч.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Мікрофон потрібен для голосового введення назви та опису завдання.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

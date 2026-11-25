@@ -6,6 +6,12 @@ export interface TodoPhoto {
   readonly path: string;
 }
 
+export interface TodoLocation {
+  readonly lat: number;
+  readonly lng: number;
+  readonly accuracy: number | null;
+}
+
 export interface Todo {
   readonly id: string;
   readonly userId: string;
@@ -15,6 +21,7 @@ export interface Todo {
   readonly createdAt: number;
   readonly dueDate: number | null;
   readonly photo: TodoPhoto | null;
+  readonly location: TodoLocation | null;
 }
 
 export interface TodoDraft {
@@ -22,4 +29,5 @@ export interface TodoDraft {
   readonly description: string;
   readonly dueDate: number | null;
   readonly photo: Blob | null;
+  readonly location: TodoLocation | null;
 }

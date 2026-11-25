@@ -27,7 +27,12 @@
       "addPhotoHint": "Camera or gallery",
       "changePhoto": "Change",
       "removePhoto": "Remove",
-      "removeDueDate": "Remove due date"
+      "removeDueDate": "Remove due date",
+      "location": "Location",
+      "addLocation": "Add current location",
+      "locating": "Getting location…",
+      "removeLocation": "Remove location",
+      "accuracy": "±{{meters}} m"
     },
     "remove": {
       "header": "Delete task?",
@@ -163,6 +168,12 @@
     "names": {
       "uk": "Українська",
       "en": "English"
+    }
+  },
+  "location": {
+    "errors": {
+      "denied": "No access to location. Allow it in settings",
+      "failed": "Could not get your location"
     }
   }
 }
