@@ -7,7 +7,7 @@ import { onSchedule } from 'firebase-functions/v2/scheduler';
 initializeApp();
 
 const ONESIGNAL_REST_API_KEY = defineSecret('ONESIGNAL_REST_API_KEY');
-const ONESIGNAL_APP_ID = defineString('ONESIGNAL_APP_ID', { default: '476f02e9-6c40-4c5f-bb03-31af3ec97ea8' });
+const ONESIGNAL_APP_ID = defineString('ONESIGNAL_APP_ID');
 
 const TODOS_COLLECTION = 'todos';
 const REMINDER_WINDOW_MS = 60 * 60 * 1000;
