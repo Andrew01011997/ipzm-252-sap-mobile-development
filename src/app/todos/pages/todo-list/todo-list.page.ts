@@ -17,7 +17,14 @@ import {
 } from '@ionic/angular';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
-import { add, checkmarkDoneOutline, clipboardOutline, cloudOfflineOutline, logOutOutline } from 'ionicons/icons';
+import {
+  add,
+  checkmarkDoneOutline,
+  clipboardOutline,
+  cloudOfflineOutline,
+  logOutOutline,
+  mapOutline,
+} from 'ionicons/icons';
 
 import { LOGIN_URL } from '../../../auth/auth-urls';
 import { AuthService } from '../../../auth/data/auth.service';
@@ -73,7 +80,7 @@ export class TodoListPage {
   protected readonly userInitial = computed(() => this.userLabel().charAt(0));
 
   constructor() {
-    addIcons({ add, checkmarkDoneOutline, clipboardOutline, cloudOfflineOutline, logOutOutline });
+    addIcons({ add, checkmarkDoneOutline, clipboardOutline, cloudOfflineOutline, logOutOutline, mapOutline });
   }
 
   protected async toggle(todo: Todo): Promise<void> {

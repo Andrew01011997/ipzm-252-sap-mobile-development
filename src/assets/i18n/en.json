@@ -125,7 +125,8 @@
     "cancel": "Cancel",
     "done": "Done",
     "clear": "Clear",
-    "locale": "en-US"
+    "locale": "en-US",
+    "close": "Close"
   },
   "media": {
     "source": {
@@ -182,5 +183,16 @@
     "work": "Work",
     "home": "Home",
     "other": "Other"
+  },
+  "map": {
+    "title": "Tasks map",
+    "open": "Open map",
+    "nearby": "Nearby",
+    "nearbyCount": "Tasks within {{radius}} km: {{count}}",
+    "empty": "No tasks with a location",
+    "info": {
+      "completed": "Completed",
+      "active": "Active"
+    }
   }
 }

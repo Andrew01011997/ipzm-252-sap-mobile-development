@@ -10,13 +10,24 @@ export interface TodoCategoryMeta {
   readonly icon: string;
   readonly iconName: string;
   readonly color: string;
+  readonly markerUrl: string;
 }
 
 export const TODO_CATEGORY_META: Readonly<Record<TodoCategory, TodoCategoryMeta>> = {
-  study: { icon: schoolOutline, iconName: 'school-outline', color: '#3b82f6' },
-  work: { icon: briefcaseOutline, iconName: 'briefcase-outline', color: '#8b5cf6' },
-  home: { icon: homeOutline, iconName: 'home-outline', color: '#10b981' },
-  other: { icon: ellipsisHorizontalCircleOutline, iconName: 'ellipsis-horizontal-circle-outline', color: '#737373' },
+  study: { markerUrl: 'assets/markers/study.png', icon: schoolOutline, iconName: 'school-outline', color: '#3b82f6' },
+  work: {
+    markerUrl: 'assets/markers/work.png',
+    icon: briefcaseOutline,
+    iconName: 'briefcase-outline',
+    color: '#8b5cf6',
+  },
+  home: { markerUrl: 'assets/markers/home.png', icon: homeOutline, iconName: 'home-outline', color: '#10b981' },
+  other: {
+    markerUrl: 'assets/markers/other.png',
+    icon: ellipsisHorizontalCircleOutline,
+    iconName: 'ellipsis-horizontal-circle-outline',
+    color: '#737373',
+  },
 };
 
 export const TODO_CATEGORY_ICONS = Object.fromEntries(

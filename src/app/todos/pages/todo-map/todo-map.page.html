@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="medium" defaultHref="/todos"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'map.title' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        class="nearby-button"
+        [class.active]="nearbyOnly()"
+        [disabled]="locating()"
+        [attr.aria-pressed]="nearbyOnly()"
+        (click)="toggleNearby()"
+      >
+        @if (locating()) {
+        <ion-spinner slot="start" name="crescent"></ion-spinner>
+        } @else {
+        <ion-icon slot="start" name="navigate-outline"></ion-icon>
+        } {{ 'map.nearby' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="map-content" [scrollY]="false">
+  <capacitor-google-map #mapElement class="map"></capacitor-google-map>
+
+  <div class="map-overlay top">
+    <div class="legend">
+      @for (category of categories; track category) {
+      <span class="legend-item">
+        <span class="legend-dot" [style.background]="categoryMeta[category].color"></span>
+        {{ 'categories.' + category | translate }}
+      </span>
+      }
+    </div>
+    @if (nearbyOnly()) {
+    <div class="status-pill">
+      {{ 'map.nearbyCount' | translate: { count: visibleTodos().length, radius: nearbyRadiusKm } }}
+    </div>
+    } @else if (ready() && locatedTodos().length === 0) {
+    <div class="status-pill">{{ 'map.empty' | translate }}</div>
+    }
+  </div>
+
+  @if (selected(); as todo) {
+  <article class="map-overlay bottom info-box" [style.--category-color]="categoryMeta[todo.category].color">
+    <header class="info-head">
+      <span class="info-category">
+        <span class="legend-dot"></span>
+        {{ 'categories.' + todo.category | translate }}
+      </span>
+      <button type="button" class="info-close" [attr.aria-label]="'common.close' | translate" (click)="closeInfo()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </header>
+    <div class="info-body">
+      @if (todo.photo; as photo) {
+      <img class="info-photo" [src]="photo.url" alt="" />
+      }
+      <div class="info-text">
+        <h2 [class.done]="todo.completed">{{ todo.title }}</h2>
+        @if (todo.description) {
+        <p>{{ todo.description }}</p>
+        }
+      </div>
+    </div>
+    <footer class="info-meta">
+      <span class="meta-item" [class.success]="todo.completed">
+        <ion-icon [name]="todo.completed ? 'checkmark-circle' : 'ellipse-outline'" aria-hidden="true"></ion-icon>
+        {{ (todo.completed ? 'map.info.completed' : 'map.info.active') | translate }}
+      </span>
+      @if (todo.dueDate; as dueDate) {
+      <span class="meta-item">
+        <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+        {{ dueDate | date: 'd MMM, HH:mm' : undefined : language.dateLocale() }}
+      </span>
+      }
+    </footer>
+  </article>
+  }
+</ion-content>
