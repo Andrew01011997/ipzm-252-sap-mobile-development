@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { RouterLink } from '@angular/router';
 import { ImpactStyle } from '@capacitor/haptics';
 import {
-  AlertController,
   IonButton,
   IonButtons,
   IonContent,
@@ -22,13 +21,12 @@ import { add, checkmarkDoneOutline, clipboardOutline, cloudOfflineOutline, logOu
 
 import { LOGIN_URL } from '../../../auth/auth-urls';
 import { AuthService } from '../../../auth/data/auth.service';
+import { NativeActionSheet } from '../../../shared/native/action-sheet.service';
 import { AppHaptics } from '../../../shared/native/haptics.service';
 import { AppToast } from '../../../shared/ui/app-toast.service';
 import { TodoItemComponent } from '../../components/todo-item/todo-item.component';
 import { TodoStore } from '../../data/todo.store';
 import type { Todo } from '../../todo.model';
-
-export const REMOVE_CONFIRM_ROLE = 'destructive';
 
 @Component({
   selector: 'app-todo-list',
@@ -54,7 +52,7 @@ export const REMOVE_CONFIRM_ROLE = 'destructive';
 })
 export class TodoListPage {
   protected readonly store = inject(TodoStore);
-  private readonly alerts = inject(AlertController);
+  private readonly actionSheet = inject(NativeActionSheet);
   private readonly translate = inject(TranslateService);
   private readonly authService = inject(AuthService);
   private readonly nav = inject(NavController);
@@ -89,26 +87,18 @@ export class TodoListPage {
   }
 
   protected async confirmRemoval(todo: Todo): Promise<void> {
-    const alert = await this.alerts.create({
-      header: this.translate.instant('todos.remove.header'),
-      subHeader: todo.title,
-      message: this.translate.instant('todos.remove.message'),
-      buttons: [
-        { text: this.translate.instant('todos.remove.cancel'), role: 'cancel' },
-        {
-          text: this.translate.instant('todos.remove.confirm'),
-          role: REMOVE_CONFIRM_ROLE,
-          cssClass: 'alert-button-danger',
-        },
-      ],
+    const confirmed = await this.actionSheet.choose({
+      title: this.translate.instant('todos.remove.header'),
+      message: `${todo.title}\n${this.translate.instant('todos.remove.message')}`,
+      choices: [{ label: this.translate.instant('todos.remove.confirm'), value: true, destructive: true }],
+      cancelLabel: this.translate.instant('todos.remove.cancel'),
     });
-    await alert.present();
-    const { role } = await alert.onDidDismiss();
-    if (role !== REMOVE_CONFIRM_ROLE) {
+    if (!confirmed) {
       return;
     }
     try {
       await this.store.remove(todo);
+      void this.haptics.impact();
     } catch {
       await this.toast.error('todos.errors.removeFailed');
     }
