@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "505285302970-0840eqgkv4utf4bikmvpp0a9pg2r5c6f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.andrew.strelchenko.todo",
+            "certificate_hash": "106b8daf05978e6ba9ea3ab1080668aacf531d4e"
+          }
+        },
+        {
           "client_id": "505285302970-nntofjk4g3crib4ncttt57ilglciitke.apps.googleusercontent.com",
           "client_type": 3
         }
