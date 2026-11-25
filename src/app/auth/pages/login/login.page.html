@@ -39,7 +39,9 @@
       <div class="auth-switch">
         <span>{{ 'auth.login.noAccount' | translate }}</span>
       </div>
-      <ion-button class="auth-submit" fill="outline" expand="block"> {{ 'auth.login.signUp' | translate }} </ion-button>
+      <ion-button class="auth-submit" fill="outline" expand="block" routerLink="/auth/sign-up">
+        {{ 'auth.login.signUp' | translate }}
+      </ion-button>
     </section>
   </div>
 </ion-content>

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
   IonBackButton,
   IonButton,
@@ -9,6 +10,7 @@ import {
   IonHeader,
   IonInput,
   IonInputPasswordToggle,
+  IonRouterLink,
   IonTitle,
   IonToolbar,
 } from '@ionic/angular';
@@ -37,6 +39,8 @@ export const USERNAME_MAX_LENGTH = 30;
     IonInput,
     IonInputPasswordToggle,
     IonButton,
+    IonRouterLink,
+    RouterLink,
     TranslatePipe,
     ValidationMessagePipe,
   ],

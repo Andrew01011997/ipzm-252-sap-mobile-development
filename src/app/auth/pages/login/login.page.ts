@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonButton, IonContent, IonIcon, IonInput, IonInputPasswordToggle } from '@ionic/angular';
+import { RouterLink } from '@angular/router';
+import { IonButton, IonContent, IonIcon, IonInput, IonInputPasswordToggle, IonRouterLink } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { checkmarkDoneOutline } from 'ionicons/icons';
@@ -19,6 +20,8 @@ import { ValidationMessagePipe } from '../../../shared/forms/validation-message.
     IonInput,
     IonInputPasswordToggle,
     IonButton,
+    IonRouterLink,
+    RouterLink,
     TranslatePipe,
     ValidationMessagePipe,
   ],
