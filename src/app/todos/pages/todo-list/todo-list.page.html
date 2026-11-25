@@ -1,33 +1,85 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{ 'todos.list.title' | translate }}</ion-title>
+    <div class="app-brand toolbar-brand" slot="start">
+      <span class="app-brand-mark"><ion-icon name="checkmark-done-outline" aria-hidden="true"></ion-icon></span>
+      {{ 'app.name' | translate }}
+    </div>
+    <ion-buttons slot="end">
+      @if (userInitial(); as initial) {
+      <span class="avatar" [attr.title]="userLabel()" aria-hidden="true">{{ initial }}</span>
+      }
+      <ion-button color="medium" [attr.aria-label]="'auth.logout' | translate" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{ 'todos.list.title' | translate }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="app-container page">
+    <header class="page-head">
+      <div>
+        <h1 class="page-title">{{ 'todos.list.title' | translate }}</h1>
+        @if (hasTodos()) {
+        <p class="page-subtitle">
+          {{ 'todos.list.summary' | translate: { active: store.activeCount(), completed: store.completedCount() } }}
+        </p>
+        }
+      </div>
+      <ion-button class="ion-hide-md-down" routerLink="new" routerDirection="forward">
+        <ion-icon slot="start" name="add"></ion-icon>
+        {{ 'todos.list.add' | translate }}
+      </ion-button>
+    </header>
 
-  @if (showEmptyState()) {
-  <div class="empty-state">
-    <ion-icon name="clipboard-outline" aria-hidden="true"></ion-icon>
-    <h2>{{ 'todos.list.empty' | translate }}</h2>
-    <ion-text color="medium">
+    @if (hasTodos()) {
+    <div
+      class="progress"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [attr.aria-valuenow]="progressPercent()"
+      [attr.aria-label]="'todos.list.progress' | translate"
+    >
+      <div class="progress-bar" [style.width.%]="progressPercent()"></div>
+    </div>
+    } @if (!store.loaded()) {
+    <div class="todo-card" aria-hidden="true">
+      @for (row of skeletonRows; track row) {
+      <div class="skeleton-row">
+        <ion-skeleton-text class="skeleton-check" [animated]="true"></ion-skeleton-text>
+        <div class="skeleton-lines">
+          <ion-skeleton-text class="skeleton-title" [animated]="true"></ion-skeleton-text>
+          <ion-skeleton-text class="skeleton-text" [animated]="true"></ion-skeleton-text>
+        </div>
+      </div>
+      }
+    </div>
+    } @else if (store.failed()) {
+    <div class="empty-state">
+      <span class="empty-icon"><ion-icon name="cloud-offline-outline" aria-hidden="true"></ion-icon></span>
+      <h2>{{ 'todos.errors.loadFailed' | translate }}</h2>
+    </div>
+    } @else if (store.isEmpty()) {
+    <div class="empty-state">
+      <span class="empty-icon"><ion-icon name="clipboard-outline" aria-hidden="true"></ion-icon></span>
+      <h2>{{ 'todos.list.empty' | translate }}</h2>
       <p>{{ 'todos.list.emptyHint' | translate }}</p>
-    </ion-text>
-  </div>
-  } @else {
-  <ion-list>
-    @for (todo of store.todos(); track todo.id) {
-    <app-todo-item [todo]="todo" (completionToggled)="toggle(todo)" (removeRequested)="confirmRemoval(todo)" />
+      <ion-button routerLink="new" routerDirection="forward">
+        <ion-icon slot="start" name="add"></ion-icon>
+        {{ 'todos.list.add' | translate }}
+      </ion-button>
+    </div>
+    } @else {
+    <ion-list class="todo-card" lines="none">
+      @for (todo of store.todos(); track todo.id) {
+      <app-todo-item [todo]="todo" (completionToggled)="toggle(todo)" (removeRequested)="confirmRemoval(todo)" />
+      }
+    </ion-list>
     }
-  </ion-list>
-  }
+  </div>
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab class="ion-hide-md-up" slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button routerLink="new" routerDirection="forward" [attr.aria-label]="'todos.list.add' | translate">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

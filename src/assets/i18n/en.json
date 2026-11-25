@@ -3,8 +3,10 @@
     "list": {
       "title": "My tasks",
       "empty": "No tasks yet",
-      "emptyHint": "Tap «+» to add your first task",
-      "add": "Add task"
+      "emptyHint": "Create your first task to get started.",
+      "add": "Add task",
+      "summary": "Active: {{active}} · Completed: {{completed}}",
+      "progress": "Completion progress"
     },
     "item": {
       "remove": "Delete task"
@@ -16,13 +18,81 @@
       "save": "Save",
       "errors": {
         "titleRequired": "Enter a task title"
-      }
+      },
+      "subtitle": "Add a title and, optionally, a description."
     },
     "remove": {
       "header": "Delete task?",
       "message": "This action cannot be undone.",
       "confirm": "Delete",
       "cancel": "Cancel"
+    },
+    "errors": {
+      "saveFailed": "Could not save the task",
+      "updateFailed": "Could not update the task",
+      "removeFailed": "Could not delete the task",
+      "loadFailed": "Could not load tasks"
     }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "heading": "Log in to your account",
+      "subtitle": "Welcome back. Sign in to continue.",
+      "submit": "Login",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up"
+    },
+    "fields": {
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "username": "Username",
+      "phone": "Phone number",
+      "birthDate": "Date of birth",
+      "city": "City"
+    },
+    "validation": {
+      "emailRequired": "Enter your email",
+      "emailInvalid": "Invalid email",
+      "passwordRequired": "Enter your password",
+      "passwordMinLength": "Password must be at least {{requiredLength}} characters",
+      "confirmPasswordRequired": "Repeat your password",
+      "passwordsMismatch": "Passwords do not match",
+      "usernameRequired": "Enter a username",
+      "usernameMinLength": "Username must be at least {{requiredLength}} characters",
+      "phoneInvalid": "Invalid phone number",
+      "birthDateInvalid": "Date cannot be in the future"
+    },
+    "signUp": {
+      "title": "Sign up",
+      "heading": "Create an account",
+      "subtitle": "It takes less than a minute.",
+      "submit": "Sign up",
+      "hasAccount": "Already have an account?",
+      "login": "Log in",
+      "sections": {
+        "account": "Account",
+        "profile": "Profile · optional"
+      }
+    },
+    "errors": {
+      "invalidCredential": "Wrong email or password",
+      "emailInUse": "This email is already registered",
+      "weakPassword": "Password is too weak",
+      "invalidEmail": "Invalid email",
+      "tooManyRequests": "Too many attempts. Try again later",
+      "network": "No network connection",
+      "operationNotAllowed": "Email and password sign-in is disabled in Firebase",
+      "unknown": "Something went wrong. Please try again",
+      "popupBlocked": "The browser blocked the sign-in window. Allow pop-ups",
+      "accountExists": "An account with this email already exists with another sign-in method"
+    },
+    "logout": "Log out",
+    "google": "Continue with Google",
+    "or": "or"
+  },
+  "app": {
+    "name": "Todo"
   }
 }

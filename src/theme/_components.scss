@@ -1,0 +1,160 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
+}
+
+ion-header,
+ion-header.header-md {
+  box-shadow: none;
+
+  &::after {
+    display: none;
+  }
+}
+
+ion-toolbar {
+  --border-width: 0 0 1px 0;
+  --border-color: var(--app-border);
+  --min-height: 56px;
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+}
+
+ion-header[collapse='condense'] ion-toolbar {
+  --border-width: 0;
+}
+
+ion-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+ion-button {
+  --border-radius: var(--app-radius);
+  --box-shadow: none;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+ion-button.button-outline {
+  --border-width: 1px;
+  --border-color: var(--app-border-strong);
+  --background-hover: var(--app-hover);
+  --background-hover-opacity: 1;
+}
+
+ion-button.button-solid.ion-color-primary {
+  --background-hover: rgba(var(--app-fg-rgb), 0.85);
+  --background-activated: rgba(var(--app-fg-rgb), 0.85);
+}
+
+ion-input.input-fill-outline,
+ion-textarea.textarea-fill-outline {
+  --border-radius: var(--app-radius);
+  --border-color: var(--app-border-strong);
+  --highlight-color-focused: var(--app-fg);
+  --highlight-color-valid: var(--app-fg);
+  --background: var(--app-surface);
+  font-size: 0.9375rem;
+}
+
+ion-checkbox {
+  --size: 20px;
+  --border-radius: 6px;
+  --border-width: 1.5px;
+  --border-color: var(--app-border-strong);
+  --checkbox-background-checked: var(--app-fg);
+  --border-color-checked: var(--app-fg);
+  --checkmark-color: var(--app-bg);
+  --checkmark-width: 2.5px;
+}
+
+ion-fab-button {
+  --background: var(--app-fg);
+  --background-hover: rgba(var(--app-fg-rgb), 0.85);
+  --background-activated: rgba(var(--app-fg-rgb), 0.85);
+  --color: var(--app-bg);
+  --box-shadow: var(--app-shadow-lg);
+}
+
+ion-alert {
+  --background: var(--app-surface);
+
+  .alert-wrapper {
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius-xl);
+    box-shadow: var(--app-shadow-lg);
+  }
+
+  .alert-title {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .alert-sub-title {
+    color: var(--app-fg);
+    font-weight: 500;
+  }
+
+  .alert-message {
+    color: var(--app-muted);
+  }
+
+  .alert-button {
+    text-transform: none;
+    font-weight: 500;
+    color: var(--app-fg);
+  }
+
+  .alert-button.alert-button-danger {
+    color: var(--app-danger);
+  }
+}
+
+ion-toast {
+  --border-radius: var(--app-radius-lg);
+  --box-shadow: var(--app-shadow-lg);
+  font-weight: 500;
+}
+
+ion-skeleton-text {
+  --background: var(--app-hover);
+  --background-rgb: var(--app-fg-rgb);
+  border-radius: var(--app-radius-sm);
+}
+
+.app-container {
+  width: 100%;
+  max-width: var(--app-content-width);
+  margin: 0 auto;
+}
+
+.app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  color: var(--app-fg);
+}
+
+.app-brand-mark {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--app-radius);
+  background: var(--app-fg);
+  color: var(--app-bg);
+  font-size: 16px;
+}

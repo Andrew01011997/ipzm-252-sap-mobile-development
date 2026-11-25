@@ -1,12 +1,58 @@
+:host {
+  display: block;
+}
+
+.todo-item {
+  --padding-start: 16px;
+  --inner-padding-end: 6px;
+  --min-height: 60px;
+  --background-hover: var(--app-hover);
+  --background-hover-opacity: 1;
+  --ripple-color: transparent;
+}
+
+ion-checkbox {
+  margin-inline-end: 14px;
+}
+
 .title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--app-fg);
   transition: color 0.2s ease;
 }
 
+.description {
+  display: -webkit-box;
+  margin: 2px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--app-muted);
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .completed .title {
+  color: var(--app-subtle);
   text-decoration: line-through;
-  color: var(--ion-color-medium);
+  text-decoration-color: var(--app-subtle);
 }
 
 .completed .description {
-  opacity: 0.6;
+  color: var(--app-subtle);
+}
+
+.remove {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 1;
+    --color: var(--app-danger);
+  }
 }

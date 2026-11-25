@@ -1,2 +1,101 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+:root {
+  --app-font: 'Geist Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --app-radius-sm: 6px;
+  --app-radius: 8px;
+  --app-radius-lg: 12px;
+  --app-radius-xl: 16px;
+  --app-content-width: 640px;
+
+  --app-bg: #ffffff;
+  --app-bg-rgb: 255, 255, 255;
+  --app-bg-subtle: #fafafa;
+  --app-surface: #ffffff;
+  --app-fg: #0a0a0a;
+  --app-fg-rgb: 10, 10, 10;
+  --app-muted: #666666;
+  --app-muted-rgb: 102, 102, 102;
+  --app-subtle: #8f8f8f;
+  --app-border: #eaeaea;
+  --app-border-strong: #d4d4d4;
+  --app-hover: #f5f5f5;
+  --app-accent: #0070f3;
+  --app-success: #16a34a;
+  --app-success-rgb: 22, 163, 74;
+  --app-danger: #e5484d;
+  --app-danger-rgb: 229, 72, 77;
+  --app-grid-line: rgba(0, 0, 0, 0.06);
+  --app-glow: rgba(0, 112, 243, 0.08);
+  --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --app-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -8px rgba(0, 0, 0, 0.1);
+  --app-shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.04), 0 24px 48px -12px rgba(0, 0, 0, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --app-bg: #000000;
+    --app-bg-rgb: 0, 0, 0;
+    --app-bg-subtle: #0a0a0a;
+    --app-surface: #0a0a0a;
+    --app-fg: #ededed;
+    --app-fg-rgb: 237, 237, 237;
+    --app-muted: #a1a1a1;
+    --app-muted-rgb: 161, 161, 161;
+    --app-subtle: #707070;
+    --app-border: #242424;
+    --app-border-strong: #3a3a3a;
+    --app-hover: #111111;
+    --app-accent: #3291ff;
+    --app-success: #22c55e;
+    --app-success-rgb: 34, 197, 94;
+    --app-danger: #ff6166;
+    --app-danger-rgb: 255, 97, 102;
+    --app-grid-line: rgba(255, 255, 255, 0.07);
+    --app-glow: rgba(50, 145, 255, 0.14);
+    --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.6);
+    --app-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02), 0 8px 24px -8px rgba(0, 0, 0, 0.8);
+    --app-shadow-lg: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 24px 48px -12px rgba(0, 0, 0, 0.9);
+  }
+}
+
+html.ios body,
+html.md body {
+  --ion-font-family: var(--app-font);
+  --ion-background-color: var(--app-bg);
+  --ion-background-color-rgb: var(--app-bg-rgb);
+  --ion-text-color: var(--app-fg);
+  --ion-text-color-rgb: var(--app-fg-rgb);
+  --ion-border-color: var(--app-border);
+  --ion-item-background: transparent;
+  --ion-card-background: var(--app-surface);
+  --ion-toolbar-background: rgba(var(--app-bg-rgb), 0.8);
+  --ion-toolbar-border-color: var(--app-border);
+  --ion-placeholder-color: var(--app-subtle);
+
+  --ion-color-primary: var(--app-fg);
+  --ion-color-primary-rgb: var(--app-fg-rgb);
+  --ion-color-primary-contrast: var(--app-bg);
+  --ion-color-primary-contrast-rgb: var(--app-bg-rgb);
+  --ion-color-primary-shade: var(--app-fg);
+  --ion-color-primary-tint: var(--app-fg);
+
+  --ion-color-medium: var(--app-muted);
+  --ion-color-medium-rgb: var(--app-muted-rgb);
+  --ion-color-medium-contrast: var(--app-bg);
+  --ion-color-medium-contrast-rgb: var(--app-bg-rgb);
+  --ion-color-medium-shade: var(--app-muted);
+  --ion-color-medium-tint: var(--app-muted);
+
+  --ion-color-danger: var(--app-danger);
+  --ion-color-danger-rgb: var(--app-danger-rgb);
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: var(--app-danger);
+  --ion-color-danger-tint: var(--app-danger);
+
+  --ion-color-success: var(--app-success);
+  --ion-color-success-rgb: var(--app-success-rgb);
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: var(--app-success);
+  --ion-color-success-tint: var(--app-success);
+}

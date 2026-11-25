@@ -1,0 +1,121 @@
+<ion-header class="auth-header" [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/auth/login" color="medium"></ion-back-button>
+    </ion-buttons>
+    <div class="app-brand">
+      <span class="app-brand-mark"><ion-icon name="checkmark-done-outline" aria-hidden="true"></ion-icon></span>
+      {{ 'app.name' | translate }}
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="auth-page" [fullscreen]="true">
+  <div class="auth-layout">
+    <section class="auth-card auth-card--wide">
+      <h1 class="auth-heading">{{ 'auth.signUp.heading' | translate }}</h1>
+      <p class="auth-subtitle">{{ 'auth.signUp.subtitle' | translate }}</p>
+
+      <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="auth-section">
+          <h2 class="auth-section-title">{{ 'auth.signUp.sections.account' | translate }}</h2>
+
+          <ion-input
+            formControlName="email"
+            type="email"
+            inputmode="email"
+            autocomplete="email"
+            fill="outline"
+            labelPlacement="floating"
+            [label]="'auth.fields.email' | translate"
+            [errorText]="form.controls.email.errors | validationMessage: messages.email"
+          ></ion-input>
+
+          <ion-input
+            formControlName="username"
+            autocomplete="username"
+            fill="outline"
+            labelPlacement="floating"
+            [label]="'auth.fields.username' | translate"
+            [maxlength]="usernameMaxLength"
+            [errorText]="form.controls.username.errors | validationMessage: messages.username"
+          ></ion-input>
+
+          <div class="auth-grid">
+            <ion-input
+              formControlName="password"
+              type="password"
+              autocomplete="new-password"
+              fill="outline"
+              labelPlacement="floating"
+              [label]="'auth.fields.password' | translate"
+              [errorText]="form.controls.password.errors | validationMessage: messages.password"
+            >
+              <ion-input-password-toggle slot="end" color="medium"></ion-input-password-toggle>
+            </ion-input>
+
+            <ion-input
+              formControlName="confirmPassword"
+              type="password"
+              autocomplete="new-password"
+              fill="outline"
+              labelPlacement="floating"
+              [label]="'auth.fields.confirmPassword' | translate"
+              [errorText]="form.controls.confirmPassword.errors | validationMessage: messages.confirmPassword"
+            >
+              <ion-input-password-toggle slot="end" color="medium"></ion-input-password-toggle>
+            </ion-input>
+          </div>
+        </div>
+
+        <div class="auth-section">
+          <h2 class="auth-section-title">{{ 'auth.signUp.sections.profile' | translate }}</h2>
+
+          <ion-input
+            formControlName="phone"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            fill="outline"
+            labelPlacement="floating"
+            placeholder="+380 XX XXX XX XX"
+            [label]="'auth.fields.phone' | translate"
+            [errorText]="form.controls.phone.errors | validationMessage: messages.phone"
+          ></ion-input>
+
+          <div class="auth-grid">
+            <ion-input
+              formControlName="birthDate"
+              type="date"
+              autocomplete="bday"
+              fill="outline"
+              labelPlacement="stacked"
+              [max]="maxBirthDate"
+              [label]="'auth.fields.birthDate' | translate"
+              [errorText]="form.controls.birthDate.errors | validationMessage: messages.birthDate"
+            ></ion-input>
+
+            <ion-input
+              formControlName="city"
+              autocomplete="address-level2"
+              fill="outline"
+              labelPlacement="floating"
+              [label]="'auth.fields.city' | translate"
+            ></ion-input>
+          </div>
+        </div>
+
+        <ion-button class="auth-submit" type="submit" expand="block" [disabled]="submitting()">
+          {{ 'auth.signUp.submit' | translate }}
+        </ion-button>
+      </form>
+
+      <app-google-sign-in />
+
+      <p class="auth-footer">
+        {{ 'auth.signUp.hasAccount' | translate }}
+        <a class="auth-link" routerLink="/auth/login" routerDirection="back">{{ 'auth.signUp.login' | translate }}</a>
+      </p>
+    </section>
+  </div>
+</ion-content>
