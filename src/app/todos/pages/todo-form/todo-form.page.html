@@ -16,6 +16,7 @@
 
     <form id="todo-form" class="todo-form" [formGroup]="form" (ngSubmit)="save()">
       <ion-input
+        mode="md"
         formControlName="title"
         fill="outline"
         labelPlacement="floating"
@@ -30,6 +31,7 @@
       </ion-input>
 
       <ion-textarea
+        mode="md"
         formControlName="description"
         fill="outline"
         labelPlacement="floating"
