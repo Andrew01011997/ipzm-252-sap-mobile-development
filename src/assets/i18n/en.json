@@ -49,7 +49,8 @@
       "subtitle": "Welcome back. Sign in to continue.",
       "submit": "Login",
       "noAccount": "Don't have an account?",
-      "signUp": "Sign up"
+      "signUp": "Sign up",
+      "forgotPassword": "Forgot password?"
     },
     "fields": {
       "email": "Email",
@@ -98,7 +99,18 @@
     },
     "logout": "Log out",
     "google": "Continue with Google",
-    "or": "or"
+    "or": "or",
+    "forgot": {
+      "heading": "Reset your password",
+      "subtitle": "Enter your account email and we'll send you a link to create a new password.",
+      "submit": "Send reset link",
+      "remembered": "Remembered your password?",
+      "sentTitle": "Check your email",
+      "sentMessage": "If an account with {{email}} exists, we've sent a password reset link to it.",
+      "backToLogin": "Back to login",
+      "noEmail": "Didn't get the email?",
+      "resend": "Send again"
+    }
   },
   "app": {
     "name": "Todo"

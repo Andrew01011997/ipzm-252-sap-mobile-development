@@ -37,6 +37,13 @@
           <ion-input-password-toggle slot="end" color="medium"></ion-input-password-toggle>
         </ion-input>
 
+        <a
+          class="auth-link forgot-link"
+          routerLink="/auth/forgot-password"
+          [queryParams]="{ email: form.controls.email.value || null }"
+          >{{ 'auth.login.forgotPassword' | translate }}</a
+        >
+
         <ion-button class="auth-submit" type="submit" expand="block" [disabled]="submitting()">
           {{ 'auth.login.submit' | translate }}
         </ion-button>

@@ -7,14 +7,17 @@ import {
   authState,
   createUserWithEmailAndPassword,
   deleteUser,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 
+import { DEFAULT_LANGUAGE } from '../../core/i18n/i18n.config';
 import { AppStorage } from '../../core/storage/app-storage.service';
 
 import type { Credentials, SignUpData, UserProfile } from './user-profile.model';
@@ -28,6 +31,7 @@ export class AuthService {
   private readonly firestore = inject(Firestore);
   private readonly storage = inject(AppStorage);
   private readonly injector = inject(EnvironmentInjector);
+  private readonly translate = inject(TranslateService);
   private readonly userIdState = signal<string | null>(null);
 
   readonly user$ = authState(this.auth);
@@ -93,6 +97,17 @@ export class AuthService {
       throw error;
     }
     await this.rememberUser(user);
+  }
+
+  async sendPasswordReset(email: string): Promise<void> {
+    this.auth.languageCode = this.translate.getCurrentLang() ?? DEFAULT_LANGUAGE;
+    try {
+      await this.run(() => sendPasswordResetEmail(this.auth, email.trim()));
+    } catch (error) {
+      if ((error as { code?: string }).code !== 'auth/user-not-found') {
+        throw error;
+      }
+    }
   }
 
   async logout(): Promise<void> {

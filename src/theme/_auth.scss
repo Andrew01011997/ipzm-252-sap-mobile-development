@@ -125,3 +125,10 @@
     text-decoration-color: currentColor;
   }
 }
+
+.forgot-link {
+  align-self: flex-end;
+  margin: -4px 0 0;
+  font-size: 0.8125rem;
+  color: var(--app-muted);
+}
