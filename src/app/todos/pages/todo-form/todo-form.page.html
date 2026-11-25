@@ -16,6 +16,7 @@
 
     <form id="todo-form" class="todo-form" [formGroup]="form" (ngSubmit)="save()">
       <ion-input
+        mode="md"
         formControlName="title"
         fill="outline"
         labelPlacement="floating"
@@ -25,9 +26,12 @@
         [errorText]="'todos.form.errors.titleRequired' | translate"
         [maxlength]="titleMaxLength"
         [counter]="true"
-      ></ion-input>
+      >
+        <app-voice-button slot="end" (transcribed)="appendTranscript('title', $event)" />
+      </ion-input>
 
       <ion-textarea
+        mode="md"
         formControlName="description"
         fill="outline"
         labelPlacement="floating"
@@ -36,17 +40,89 @@
         [maxlength]="descriptionMaxLength"
         [counter]="true"
         [autoGrow]="true"
-        [rows]="5"
-      ></ion-textarea>
+        [rows]="4"
+      >
+        <app-voice-button slot="end" (transcribed)="appendTranscript('description', $event)" />
+      </ion-textarea>
+
+      <section class="field-group">
+        <span class="field-label">{{ 'todos.form.dueDate' | translate }}</span>
+        @if (form.controls.dueDate.value; as dueDate) {
+        <div class="value-row">
+          <button type="button" class="value-chip" (click)="dueDateOpen.set(true)">
+            <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+            {{ dueDate | date: 'd MMMM y, HH:mm' }}
+          </button>
+          <ion-button
+            fill="clear"
+            color="medium"
+            size="small"
+            [attr.aria-label]="'todos.form.removeDueDate' | translate"
+            (click)="clearDueDate()"
+          >
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </div>
+        } @else {
+        <button type="button" class="add-tile" (click)="dueDateOpen.set(true)">
+          <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+          {{ 'todos.form.addDueDate' | translate }}
+        </button>
+        }
+      </section>
+
+      <section class="field-group">
+        <span class="field-label">{{ 'todos.form.photo' | translate }}</span>
+        @if (photoPreview(); as preview) {
+        <div class="photo-preview">
+          <img [src]="preview" alt="" />
+          <div class="photo-actions">
+            <ion-button size="small" fill="outline" (click)="pickPhoto()">
+              {{ 'todos.form.changePhoto' | translate }}
+            </ion-button>
+            <ion-button size="small" fill="outline" color="danger" (click)="removePhoto()">
+              {{ 'todos.form.removePhoto' | translate }}
+            </ion-button>
+          </div>
+        </div>
+        } @else {
+        <button type="button" class="add-tile add-tile--large" (click)="pickPhoto()">
+          <span class="tile-icon"><ion-icon name="camera-outline" aria-hidden="true"></ion-icon></span>
+          <span class="tile-text">
+            <strong>{{ 'todos.form.addPhoto' | translate }}</strong>
+            <small>{{ 'todos.form.addPhotoHint' | translate }}</small>
+          </span>
+        </button>
+        }
+      </section>
     </form>
   </div>
+
+  <ion-modal class="datetime-modal" [isOpen]="dueDateOpen()" (didDismiss)="dueDateOpen.set(false)">
+    <ng-template>
+      <ion-datetime
+        presentation="date-time"
+        [locale]="'common.locale' | translate"
+        [firstDayOfWeek]="1"
+        [min]="minDueDate"
+        [value]="form.controls.dueDate.value"
+        [showDefaultButtons]="true"
+        [doneText]="'common.done' | translate"
+        [cancelText]="'common.cancel' | translate"
+        (ionChange)="onDueDateChange($event)"
+        (ionCancel)="dueDateOpen.set(false)"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
 </ion-content>
 
 <ion-footer class="form-footer">
   <ion-toolbar>
     <div class="app-container footer-actions">
       <ion-button type="submit" form="todo-form" expand="block" [disabled]="saving()">
-        {{ 'todos.form.save' | translate }}
+        @if (saving()) {
+        <ion-spinner name="crescent"></ion-spinner>
+        } @else { {{ 'todos.form.save' | translate }} }
       </ion-button>
     </div>
   </ion-toolbar>

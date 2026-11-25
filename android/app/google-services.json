@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "505285302970",
+    "project_id": "todo-list-ipzm252-sap",
+    "storage_bucket": "todo-list-ipzm252-sap.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505285302970:android:83edecc0c20c895ea4c083",
+        "android_client_info": {
+          "package_name": "me.andrew.strelchenko.todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "505285302970-0840eqgkv4utf4bikmvpp0a9pg2r5c6f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.andrew.strelchenko.todo",
+            "certificate_hash": "106b8daf05978e6ba9ea3ab1080668aacf531d4e"
+          }
+        },
+        {
+          "client_id": "505285302970-nntofjk4g3crib4ncttt57ilglciitke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARsEZHAyIbjjdVxGHrnGYyASyLaxD4m9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "505285302970-nntofjk4g3crib4ncttt57ilglciitke.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "505285302970-60kpmde3roepq4397h3lq4u5ij3pt39s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "me.andrew.strelchenko.todo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

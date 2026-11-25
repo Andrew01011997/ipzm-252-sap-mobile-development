@@ -19,7 +19,15 @@
       "errors": {
         "titleRequired": "Enter a task title"
       },
-      "subtitle": "Add a title and, optionally, a description."
+      "subtitle": "Add a title and, optionally, a description.",
+      "dueDate": "Due date",
+      "addDueDate": "Add due date",
+      "photo": "Photo",
+      "addPhoto": "Add photo",
+      "addPhotoHint": "Camera or gallery",
+      "changePhoto": "Change",
+      "removePhoto": "Remove",
+      "removeDueDate": "Remove due date"
     },
     "remove": {
       "header": "Delete task?",
@@ -41,7 +49,8 @@
       "subtitle": "Welcome back. Sign in to continue.",
       "submit": "Login",
       "noAccount": "Don't have an account?",
-      "signUp": "Sign up"
+      "signUp": "Sign up",
+      "forgotPassword": "Forgot password?"
     },
     "fields": {
       "email": "Email",
@@ -90,9 +99,63 @@
     },
     "logout": "Log out",
     "google": "Continue with Google",
-    "or": "or"
+    "or": "or",
+    "forgot": {
+      "heading": "Reset your password",
+      "subtitle": "Enter your account email and we'll send you a link to create a new password.",
+      "submit": "Send reset link",
+      "remembered": "Remembered your password?",
+      "sentTitle": "Check your email",
+      "sentMessage": "If an account with {{email}} exists, we've sent a password reset link to it.",
+      "backToLogin": "Back to login",
+      "noEmail": "Didn't get the email?",
+      "resend": "Send again"
+    }
   },
   "app": {
     "name": "Todo"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "done": "Done",
+    "clear": "Clear",
+    "locale": "en-US"
+  },
+  "media": {
+    "source": {
+      "title": "Add photo",
+      "camera": "Take photo",
+      "gallery": "Choose from gallery"
+    },
+    "errors": {
+      "pickFailed": "Could not get the photo"
+    }
+  },
+  "lock": {
+    "title": "App is locked",
+    "subtitle": "Verify your identity with {{method}} to open your tasks.",
+    "reason": "Verify your identity to open your tasks",
+    "unlock": "Unlock",
+    "biometry": {
+      "faceId": "Face ID",
+      "touchId": "Touch ID",
+      "fingerprint": "fingerprint",
+      "face": "face recognition",
+      "iris": "iris scan",
+      "generic": "biometrics"
+    }
+  },
+  "offline": {
+    "title": "No internet connection",
+    "message": "Check your network. The app will be available again as soon as the connection is restored.",
+    "retry": "Try again"
+  },
+  "voice": {
+    "start": "Voice input",
+    "stop": "Stop recording",
+    "errors": {
+      "denied": "No access to the microphone or speech recognition",
+      "failed": "Could not recognize speech"
+    }
   }
 }

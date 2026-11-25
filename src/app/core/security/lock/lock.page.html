@@ -1,0 +1,15 @@
+<ion-content class="auth-page" [fullscreen]="true">
+  <div class="auth-layout">
+    <section class="auth-card lock-card">
+      <span class="lock-icon"><ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon></span>
+      <h1 class="auth-heading">{{ 'lock.title' | translate }}</h1>
+      <p class="auth-subtitle">{{ 'lock.subtitle' | translate: { method: (lock.biometryLabel() | translate) } }}</p>
+      <ion-button class="auth-submit" expand="block" [disabled]="pending()" (click)="unlock()">
+        {{ 'lock.unlock' | translate }}
+      </ion-button>
+      <ion-button class="lock-logout" fill="clear" color="medium" expand="block" (click)="logout()">
+        {{ 'auth.logout' | translate }}
+      </ion-button>
+    </section>
+  </div>
+</ion-content>

@@ -15,6 +15,7 @@
 
       <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
         <ion-input
+          mode="md"
           formControlName="email"
           type="email"
           inputmode="email"
@@ -26,6 +27,7 @@
         ></ion-input>
 
         <ion-input
+          mode="md"
           formControlName="password"
           type="password"
           autocomplete="current-password"
@@ -36,6 +38,13 @@
         >
           <ion-input-password-toggle slot="end" color="medium"></ion-input-password-toggle>
         </ion-input>
+
+        <a
+          class="auth-link forgot-link"
+          routerLink="/auth/forgot-password"
+          [queryParams]="{ email: form.controls.email.value || null }"
+          >{{ 'auth.login.forgotPassword' | translate }}</a
+        >
 
         <ion-button class="auth-submit" type="submit" expand="block" [disabled]="submitting()">
           {{ 'auth.login.submit' | translate }}

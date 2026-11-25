@@ -10,7 +10,16 @@
     @if (todo().description) {
       <p class="description">{{ todo().description }}</p>
     }
+    @if (todo().dueDate; as dueDate) {
+      <span class="due" [class.overdue]="isOverdue()">
+        <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+        {{ dueDate | date: 'd MMM, HH:mm' }}
+      </span>
+    }
   </ion-label>
+  @if (todo().photo; as photo) {
+    <img class="thumb" slot="end" [src]="photo.url" alt="" loading="lazy" />
+  }
   <ion-button
     class="remove"
     slot="end"

@@ -20,6 +20,7 @@ export class GoogleSignInComponent {
   private readonly toast = inject(AppToast);
 
   protected readonly pending = signal(false);
+  protected readonly available = this.authService.googleSignInAvailable;
 
   protected async signIn(): Promise<void> {
     if (this.pending()) {

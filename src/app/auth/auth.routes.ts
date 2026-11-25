@@ -10,6 +10,10 @@ export const AUTH_ROUTES: Routes = [
     loadComponent: () => import('./pages/sign-up/sign-up.page').then((m) => m.SignUpPage),
   },
   {
+    path: 'forgot-password',
+    loadComponent: () => import('./pages/forgot-password/forgot-password.page').then((m) => m.ForgotPasswordPage),
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',

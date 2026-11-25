@@ -5,6 +5,7 @@ import { catchError, map, of, switchMap } from 'rxjs';
 import { AuthService } from '../../auth/data/auth.service';
 import type { Todo, TodoDraft } from '../todo.model';
 
+import { TodoPhotoStorage } from './todo-photo.storage';
 import { TodoRepository } from './todo.repository';
 
 interface TodosState {
@@ -19,6 +20,7 @@ const INITIAL_STATE: TodosState = { todos: [], loaded: false, failed: false };
 export class TodoStore {
   private readonly repository = inject(TodoRepository);
   private readonly authService = inject(AuthService);
+  private readonly photos = inject(TodoPhotoStorage);
 
   private readonly state = toSignal(
     toObservable(this.authService.userId).pipe(
@@ -43,21 +45,36 @@ export class TodoStore {
   readonly progress = computed(() => (this.isEmpty() ? 0 : this.completedCount() / this.state().todos.length));
 
   async add(draft: TodoDraft): Promise<void> {
-    await this.repository.create({
-      userId: this.requireUserId(),
-      title: draft.title.trim(),
-      description: draft.description.trim(),
-      completed: false,
-      createdAt: Date.now(),
-    });
+    const userId = this.requireUserId();
+    const id = this.repository.createId();
+    const photo = draft.photo ? await this.photos.upload(userId, id, draft.photo) : null;
+    try {
+      await this.repository.create(id, {
+        userId,
+        title: draft.title.trim(),
+        description: draft.description.trim(),
+        completed: false,
+        createdAt: Date.now(),
+        dueDate: draft.dueDate,
+        photo,
+      });
+    } catch (error) {
+      if (photo) {
+        await this.photos.remove(photo.path);
+      }
+      throw error;
+    }
   }
 
   toggle(todo: Todo): Promise<void> {
     return this.repository.update(todo.id, { completed: !todo.completed });
   }
 
-  remove(id: string): Promise<void> {
-    return this.repository.remove(id);
+  async remove(todo: Todo): Promise<void> {
+    await this.repository.remove(todo.id);
+    if (todo.photo) {
+      await this.photos.remove(todo.photo.path);
+    }
   }
 
   private requireUserId(): string {

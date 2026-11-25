@@ -1,26 +1,41 @@
 import { EnvironmentInjector, Injectable, inject, runInInjectionContext, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import type { User } from '@angular/fire/auth';
+import type { User, UserCredential } from '@angular/fire/auth';
 import {
   Auth,
   GoogleAuthProvider,
   authState,
   createUserWithEmailAndPassword,
   deleteUser,
+  sendPasswordResetEmail,
+  signInWithCredential,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { Capacitor } from '@capacitor/core';
+import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
+import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 
+import { DEFAULT_LANGUAGE } from '../../core/i18n/i18n.config';
 import { AppStorage } from '../../core/storage/app-storage.service';
 
 import type { Credentials, SignUpData, UserProfile } from './user-profile.model';
 
 export const USER_ID_STORAGE_KEY = 'userId';
 export const USERS_COLLECTION = 'users';
+export const NATIVE_AUTH_PLUGIN = 'FirebaseAuthentication';
+
+export class GoogleSignInCancelledError extends Error {
+  readonly code = 'auth/popup-closed-by-user';
+
+  constructor() {
+    super('Google sign-in was cancelled');
+  }
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -28,11 +43,13 @@ export class AuthService {
   private readonly firestore = inject(Firestore);
   private readonly storage = inject(AppStorage);
   private readonly injector = inject(EnvironmentInjector);
+  private readonly translate = inject(TranslateService);
   private readonly userIdState = signal<string | null>(null);
 
   readonly user$ = authState(this.auth);
   readonly userId = this.userIdState.asReadonly();
   readonly user = toSignal(this.user$, { initialValue: null });
+  readonly googleSignInAvailable = !Capacitor.isNativePlatform() || Capacitor.isPluginAvailable(NATIVE_AUTH_PLUGIN);
 
   async restoreSession(): Promise<void> {
     const [user, storedUserId] = await Promise.all([
@@ -54,9 +71,9 @@ export class AuthService {
   }
 
   async loginWithGoogle(): Promise<void> {
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: 'select_account' });
-    const { user } = await this.run(() => signInWithPopup(this.auth, provider));
+    const { user } = Capacitor.isNativePlatform()
+      ? await this.signInWithGoogleNative()
+      : await this.signInWithGooglePopup();
     const profileRef = doc(this.firestore, USERS_COLLECTION, user.uid);
     const snapshot = await this.run(() => getDoc(profileRef));
     if (!snapshot.exists()) {
@@ -95,9 +112,44 @@ export class AuthService {
     await this.rememberUser(user);
   }
 
+  async sendPasswordReset(email: string): Promise<void> {
+    this.auth.languageCode = this.translate.getCurrentLang() ?? DEFAULT_LANGUAGE;
+    try {
+      await this.run(() => sendPasswordResetEmail(this.auth, email.trim()));
+    } catch (error) {
+      if ((error as { code?: string }).code !== 'auth/user-not-found') {
+        throw error;
+      }
+    }
+  }
+
   async logout(): Promise<void> {
     await this.forgetUser();
     await this.run(() => signOut(this.auth));
+    if (Capacitor.isNativePlatform() && Capacitor.isPluginAvailable(NATIVE_AUTH_PLUGIN)) {
+      await FirebaseAuthentication.signOut().catch(() => undefined);
+    }
+  }
+
+  private signInWithGooglePopup(): Promise<UserCredential> {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    return this.run(() => signInWithPopup(this.auth, provider));
+  }
+
+  private async signInWithGoogleNative(): Promise<UserCredential> {
+    let idToken: string | undefined;
+    let accessToken: string | undefined;
+    try {
+      ({ idToken, accessToken } = (await FirebaseAuthentication.signInWithGoogle()).credential ?? {});
+    } catch (error) {
+      throw /cancel/i.test(String((error as { message?: unknown }).message)) ? new GoogleSignInCancelledError() : error;
+    }
+    if (!idToken) {
+      throw new GoogleSignInCancelledError();
+    }
+    const credential = GoogleAuthProvider.credential(idToken, accessToken);
+    return this.run(() => signInWithCredential(this.auth, credential));
   }
 
   private async rememberUser(user: User): Promise<void> {
