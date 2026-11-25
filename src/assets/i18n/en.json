@@ -157,5 +157,12 @@
       "denied": "No access to the microphone or speech recognition",
       "failed": "Could not recognize speech"
     }
+  },
+  "language": {
+    "label": "Language",
+    "names": {
+      "uk": "Українська",
+      "en": "English"
+    }
   }
 }

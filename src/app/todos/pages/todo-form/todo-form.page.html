@@ -51,7 +51,7 @@
         <div class="value-row">
           <button type="button" class="value-chip" (click)="dueDateOpen.set(true)">
             <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
-            {{ dueDate | date: 'd MMMM y, HH:mm' }}
+            {{ dueDate | date: 'd MMMM y, HH:mm' : undefined : language.dateLocale() }}
           </button>
           <ion-button
             fill="clear"

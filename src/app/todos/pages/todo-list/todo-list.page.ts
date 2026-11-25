@@ -21,6 +21,7 @@ import { add, checkmarkDoneOutline, clipboardOutline, cloudOfflineOutline, logOu
 
 import { LOGIN_URL } from '../../../auth/auth-urls';
 import { AuthService } from '../../../auth/data/auth.service';
+import { LanguageSwitcherComponent } from '../../../core/i18n/language-switcher/language-switcher.component';
 import { BiometricLock } from '../../../core/security/biometric-lock.service';
 import { NativeActionSheet } from '../../../shared/native/action-sheet.service';
 import { AppHaptics } from '../../../shared/native/haptics.service';
@@ -34,6 +35,7 @@ import type { Todo } from '../../todo.model';
   templateUrl: './todo-list.page.html',
   styleUrl: './todo-list.page.scss',
   imports: [
+    LanguageSwitcherComponent,
     IonHeader,
     IonToolbar,
     IonButtons,

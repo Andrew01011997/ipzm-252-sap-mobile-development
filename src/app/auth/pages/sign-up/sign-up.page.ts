@@ -19,6 +19,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { checkmarkDoneOutline } from 'ionicons/icons';
 
+import { LanguageSwitcherComponent } from '../../../core/i18n/language-switcher/language-switcher.component';
 import type { ValidationMessages } from '../../../shared/forms/validation-message.pipe';
 import { ValidationMessagePipe } from '../../../shared/forms/validation-message.pipe';
 import { matchControl, notInFuture, phone, todayIsoDate } from '../../../shared/forms/validators';
@@ -36,6 +37,7 @@ export const USERNAME_MAX_LENGTH = 30;
   selector: 'app-sign-up',
   templateUrl: './sign-up.page.html',
   imports: [
+    LanguageSwitcherComponent,
     ReactiveFormsModule,
     IonHeader,
     IonToolbar,

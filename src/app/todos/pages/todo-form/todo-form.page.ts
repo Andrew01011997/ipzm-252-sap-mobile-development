@@ -24,6 +24,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { calendarOutline, cameraOutline, close } from 'ionicons/icons';
 
+import { LanguageService } from '../../../core/i18n/language.service';
 import { PhotoPicker } from '../../../shared/media/photo-picker.service';
 import { AppHaptics } from '../../../shared/native/haptics.service';
 import { AppToast } from '../../../shared/ui/app-toast.service';
@@ -74,6 +75,7 @@ export class TodoFormPage {
   private readonly toast = inject(AppToast);
   private readonly photoPicker = inject(PhotoPicker);
   private readonly haptics = inject(AppHaptics);
+  protected readonly language = inject(LanguageService);
 
   protected readonly listUrl = TODOS_LIST_URL;
   protected readonly titleMaxLength = TODO_TITLE_MAX_LENGTH;

@@ -5,6 +5,7 @@
       {{ 'app.name' | translate }}
     </div>
     <ion-buttons slot="end">
+      <app-language-switcher class="toolbar-language" />
       @if (userInitial(); as initial) {
       <span class="avatar" [attr.title]="userLabel()" aria-hidden="true">{{ initial }}</span>
       }

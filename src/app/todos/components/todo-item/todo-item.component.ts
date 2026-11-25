@@ -1,10 +1,11 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { IonButton, IonCheckbox, IonIcon, IonItem, IonLabel } from '@ionic/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { calendarOutline, trashOutline } from 'ionicons/icons';
 
+import { LanguageService } from '../../../core/i18n/language.service';
 import type { Todo } from '../../todo.model';
 
 @Component({
@@ -15,6 +16,8 @@ import type { Todo } from '../../todo.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoItemComponent {
+  protected readonly language = inject(LanguageService);
+
   readonly todo = input.required<Todo>();
   readonly completionToggled = output<void>();
   readonly removeRequested = output<void>();

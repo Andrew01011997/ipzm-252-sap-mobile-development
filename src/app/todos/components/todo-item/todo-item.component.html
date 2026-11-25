@@ -13,7 +13,7 @@
     @if (todo().dueDate; as dueDate) {
       <span class="due" [class.overdue]="isOverdue()">
         <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
-        {{ dueDate | date: 'd MMM, HH:mm' }}
+        {{ dueDate | date: 'd MMM, HH:mm' : undefined : language.dateLocale() }}
       </span>
     }
   </ion-label>
