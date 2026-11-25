@@ -1,0 +1,45 @@
+<ion-content>
+  <div class="auth-layout">
+    <section class="auth-card">
+      <div class="auth-brand">
+        <ion-icon name="checkmark-done-outline" aria-hidden="true"></ion-icon>
+      </div>
+      <h1 class="auth-heading">{{ 'auth.login.heading' | translate }}</h1>
+      <p class="auth-subtitle">{{ 'auth.login.subtitle' | translate }}</p>
+
+      <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
+        <ion-input
+          formControlName="email"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          fill="outline"
+          labelPlacement="floating"
+          [label]="'auth.fields.email' | translate"
+          [errorText]="form.controls.email.errors | validationMessage: emailMessages"
+        ></ion-input>
+
+        <ion-input
+          formControlName="password"
+          type="password"
+          autocomplete="current-password"
+          fill="outline"
+          labelPlacement="floating"
+          [label]="'auth.fields.password' | translate"
+          [errorText]="form.controls.password.errors | validationMessage: passwordMessages"
+        >
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+
+        <ion-button class="auth-submit" type="submit" expand="block">
+          {{ 'auth.login.submit' | translate }}
+        </ion-button>
+      </form>
+
+      <div class="auth-switch">
+        <span>{{ 'auth.login.noAccount' | translate }}</span>
+      </div>
+      <ion-button class="auth-submit" fill="outline" expand="block"> {{ 'auth.login.signUp' | translate }} </ion-button>
+    </section>
+  </div>
+</ion-content>

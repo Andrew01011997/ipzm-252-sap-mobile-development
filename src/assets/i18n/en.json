@@ -24,5 +24,24 @@
       "confirm": "Delete",
       "cancel": "Cancel"
     }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "heading": "Welcome back!",
+      "subtitle": "Sign in to see your tasks",
+      "submit": "Login",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up"
+    },
+    "fields": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "validation": {
+      "emailRequired": "Enter your email",
+      "emailInvalid": "Invalid email",
+      "passwordRequired": "Enter your password"
+    }
   }
 }
